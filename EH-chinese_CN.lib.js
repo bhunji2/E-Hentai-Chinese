@@ -1,4 +1,5 @@
-var Page 		=
+var Page_CN
+=
 {
 	"main":
 	{
