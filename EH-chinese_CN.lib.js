@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         EH-chinese_CN.lib.js
 // @version      0.03
-// @description  E绅士中文化 test
+// @description  E绅士中文化 简体版程序库
 // @author       Tast
 // @icon         http://exhentai.org/favicon.ico
 // ==/UserScript==
