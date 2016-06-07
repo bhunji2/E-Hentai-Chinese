@@ -1,13 +1,8 @@
 // ==UserScript==
-// @name         test
-// @namespace    test
-// @namespace    Tast
+// @name         EH-chinese_CN.lib.js
 // @version      0.01
 // @description  E紳士中文化 test
 // @author       Tast
-// @include      *://exhentai.org/*
-// @include      *://ul.exhentai.org/*
-// @include      *://*e-hentai.org/*
 // @icon         http://exhentai.org/favicon.ico
 // ==/UserScript==
 
