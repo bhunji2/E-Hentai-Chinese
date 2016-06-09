@@ -14,7 +14,6 @@
 // @icon         http://exhentai.org/favicon.ico
 // @require      https://code.jquery.com/jquery-1.12.3.min.js
 // @require 	 https://greasyfork.org/scripts/20286-chinesetr/code/ChineseTR.js
-// @updateURL 	 http://tast.banner.tw/Javascript/EHentai/Ehentai.user.js
 // ==/UserScript==
 //==============================================变量声明==============================================
 // @resource 	 testjs		http://tast.banner.tw/Javascript/EHentai/Ehentai.user.js
@@ -34,7 +33,7 @@ var Page 		=
 	"main":
 	{
 		 "p[id='frontpage'] a"				:"回到首页"
-		,"#lb a:contains('Overview')"		:"概观状态"
+		,"#lb a:contains('Overview')"		:"概况状态"
 		,"#lb a:contains('My Stats')"		:"信息统计"
 		,"#lb a:contains('My Settings')"	:"个人设置"
 		,"#lb a:contains('Hentai@Home')"	:"绅士之家"
@@ -197,8 +196,8 @@ var Page 		=
 	"g.e-hentai.org/":
 	{
 		 "#toppane h1.ih":"E绅士图库：免费的绅士同人志、漫画、图片画册系统"
-		,"#searchbox p.nopm a:contains('Show Advanced Options')"	:"显示高端搜索"
-		,"#searchbox p.nopm a:contains('Show File Search')"			:"显示以图找图"
+		,"#searchbox p.nopm a:contains('Show Advanced Options')"	:"显示高级搜索"
+		,"#searchbox p.nopm a:contains('Show File Search')"			:"显示以图搜图"
 		,"div.ido p:contains('No hits found')":"<font color='red'><b>没有任何发现</b></font>"
 		
 		//列表模式
@@ -209,15 +208,15 @@ var Page 		=
 		,"ReplaceMode":
 		[
 			 ["attr","#searchbox input[name='f_search']",	"placeholder"		,"填此搜索"]
-			,["attr","#searchbox input[name='f_apply']"	,	"value"				,"送出"]
+			,["attr","#searchbox input[name='f_apply']"	,	"value"				,"确定"]
 			,["attr","#searchbox input[name='f_clear']"	,	"value"				,"清除"]
 			
-			,["attr","#searchbox p.nopm a:contains('显示高端搜索')"	,	"title"	,"显示/隐藏高端搜索"]
-			,["attr","#searchbox p.nopm a:contains('显示以图找图')"	,	"title"	,"显示/隐藏以图找图"]
+			,["attr","#searchbox p.nopm a:contains('显示高级搜索')"	,	"title"	,"显示/隐藏高级搜索"]
+			,["attr","#searchbox p.nopm a:contains('显示以图搜图')"	,	"title"	,"显示/隐藏以图搜图"]
 			
 			,["modi","#searchbox p.nopm a"	,{
-				"Show Advanced Options"	:"显示高端搜索",
-				"Show File Search"		:"显示以图找图"
+				"Show Advanced Options"	:"显示高级搜索",
+				"Show File Search"		:"显示以图搜图"
 			}]
 			
 			,["modi","#advdiv"	,{
@@ -244,7 +243,7 @@ var Page 		=
 				"All public galleries containing this exact file will be displayed.":
 					"任何公开包含此图片档的画册都会被显示.",
 				"For color images, the system can also perform a similarity lookup to find resampled images.":
-					"如果使用彩色图片，系统会侦测画册中最相似的图片.",
+					"如果使用彩色图片，系统会检测画册中最相似的图片.",
 					
 				"Use Similarity Scan"	:"使用图片类似度搜索",
 				"Only Search Covers"	:"只搜索画册封面",
@@ -266,7 +265,7 @@ var Page 		=
 			,["html","div.ido p.ip a"	,"Visit the E-Hentai Forums"	,"E绅士论坛"]
 			,["html","div.ido p.ip a"	,"E-Hentai @ Twitter"			,"E绅士推特"]
 			,["html","div.ido p.ip a"	,"Play the HentaiVerse Minigame","E绅士游戏"]
-			,["html","div.ido p.ip a"	,"Lo-Fi Version"				,"E绅士行动版"]
+			,["html","div.ido p.ip a"	,"Lo-Fi Version"				,"E绅士移动版"]
 			
 		]
 	},
@@ -291,7 +290,7 @@ var Page 		=
 		,"#div_clients table.hct th:contains('Status')"				:"状态"
 		,"#div_clients table.hct th:contains('Created')"			:"建立日期"
 		,"#div_clients table.hct th:contains('Last Seen')"			:"最后上线"
-		,"#div_clients table.hct th:contains('Files Served')"		:"已送出文件数量"
+		,"#div_clients table.hct th:contains('Files Served')"		:"已确定文件数量"
 		,"#div_clients table.hct th:contains('Client IP')"			:"客户端IP"
 		,"#div_clients table.hct th:contains('Port')"				:"连接端口"
 		,"#div_clients table.hct th:contains('Version')"			:"版本号"
@@ -313,7 +312,7 @@ var Page 		=
 		,"div.infotitle:contains('Maximum Burst Speed')"			:"最大连接速度"
 		,"div.infotitle:contains('Hourly Bandwidth Limit')"			:"每小时流量限制"
 		,"div.infotitle:contains('Maximum Disk Cache Size')"		:"最大缓存容量 ( 硬盘使用量 )"
-		,"td.infota:contains('Advanced Settings')"					:"高端设置"
+		,"td.infota:contains('Advanced Settings')"					:"高级设置"
 		,"div.infotitle:contains('Reset Client Key')"				:"重设客户端密钥"
 		,"div.infotitle:contains('Local Network Host IP Address')"	:"本地端网络IP地址"
 		,"div.infotitle:contains('Minimum space to leave on disk')"	:"最小保留容量 ( 硬盘保留空间大小 )"
@@ -322,7 +321,7 @@ var Page 		=
 		,"div.infotitle:contains('Static Ranges')"					:"静态文件范围 ( 可用文件列表 )"
 		,"div.infotitle:contains('Miscellaneous Toggles')"			:"杂项开关"
 		
-		,"td.infotv:contains('The settings below are optional advanced settings.')":"以下高端设置请先了解后更改"
+		,"td.infotv:contains('The settings below are optional advanced settings.')":"以下高级设置请先了解后更改"
 		
 		,"label[for='f_disable_bwm']"			:"取消客户端连接速度限制"
 		,"label[for='f_verify_cache']"			:"下次启动检查缓存完整性"
@@ -395,12 +394,12 @@ var Page 		=
 				,"These are technical requirements, and it is not possible to make any exceptions."
 				,"这些是技术上的需求，没有任何意外."
 				+"<br><br>额外说明："
-				+"<br>给管理员 Tenboro 碳波罗 发送客户端申请之后假如太久没回应，请勿大肆广发询问或重复发送消息."
+				+"<br>给管理员 Tenboro 碳波罗 发送客户端申请之后假如太久没回应，请勿大肆发送询问或重复发送消息."
 				+"<br>管理员平时太忙被烦到不爽小心帐号GG.<br>"
 				]
 			,["html","#div_clients p"
 				,"If the auto-detected country is wrong, "
-				,"如果系统自动侦测的国家错误，"]
+				,"如果系统自动检测的国家错误，"]
 			,["html","#div_clients p"
 				,"contact Tenboro to have an override applied."
 				,"请联系 Tenboro 碳波罗等待修正."]
@@ -422,10 +421,10 @@ var Page 		=
 				,"绅士之家的发布是基于开放源代码计划中，第三版本的GNU通用公共授权条款."]
 			,["html","#div_download p"
 				,"The source code along with necessary libraries and scripts to build it on Windows and Linux/BSD/Unix-type systems can be downloaded below."
-				,"<br>源代码以及相应的程序库和脚本，建立在Windows、Linux/BSD/Unix这类系统的组建可在下方下载."]
+				,"<br>源代码以及相应的进程库和脚本，建立在Windows、Linux/BSD/Unix这类系统的组建可在下方下载."]
 			,["html","#div_download p"
 				,"You will also need the stand-alone SQLiteJDBC Library to build your own version."
-				,"<br>你也需要独立的 SQLiteJDBC 程序库用来建造属于你自己的版本类型."]
+				,"<br>你也需要独立的 SQLiteJDBC 进程库用来建造属于你自己的版本类型."]
 			,["html","#div_download p"
 				,"Note that for security reasons, this page and the files themselves are hosted on different servers."
 				,"安全起见，本页以及文件本身放置在不同的服务器上面."]
@@ -437,7 +436,7 @@ var Page 		=
 				,"<br>要取得更多验证的相关信息，"]
 			,["html","#div_download p"
 				,"and links to available versions for Microsoft Windows, see this link:"
-				,"适用于微软Windows的版本，请按此链接："]
+				,"适用于微软Windows的版本，请点击此链接："]
 				
 			//设置页
 			,["html","div.infotext p"
@@ -524,10 +523,10 @@ var Page 		=
 				,"<br>这会让客户端使用此IP发起连接至路由服务器的要求."]
 			,["html","div.infotext p"
 				,"Note that some browsers and extensions may restrict this type of local network access, "
-				,"注意，有些浏览器的外挂套件可能会禁止此类型的网络连接"]
+				,"注意，有些浏览器的扩展可能会禁止此类型的网络连接"]
 			,["html","div.infotext p"
 				,"requiring explicit whitelisting of the site."
-				,"<br>必须设置好白名单以利网络连接."]
+				,"<br>必须设置好白名单以方便网络连接."]
 				
 			,["html","div.infotext p"
 				,"If this value is set, "
@@ -541,7 +540,7 @@ var Page 		=
 				
 			,["html","div.infotext p"
 				,"In most cases, this should be set to Local Network Only."
-				,"通常，这缺省只给本地端网络使用."]
+				,"通常，这默认只给本地端网络使用."]
 			,["html","div.infotext p"
 				,"This will allow you to use the H@H client as a proxy for viewing images."
 				,"<br>可以把绅士家客户端当作浏览图片的代理服务器 ( 仅限E绅士 )."]
@@ -648,8 +647,8 @@ var Page 		=
 				,"<br>如果你更改通信端口或重设客户端密钥，"]
 			,["html","div"
 				,"you should exit Hentai@Home before hitting the button below."
-				,"你应该先关闭绅士家客户端后，再点击下面的送出钮."]
-			,["attr","input[value='Apply Settings']","value","送出设置"]
+				,"你应该先关闭绅士家客户端后，再点击下面的确定钮."]
+			,["attr","input[value='Apply Settings']","value","确定设置"]
 			//调度设置
 			,["html","h1:contains('Modify Schedule for Client')"
 				,"Modify Schedule for Client"
@@ -668,7 +667,7 @@ var Page 		=
 				,"输入需要的数值并确认启动框有勾选，"]
 			,["html","p:contains('then hit Apply Schedule.')"
 				,"then hit Apply Schedule."
-				,"然后点击送出设置按钮."]
+				,"然后点击确定设置按钮."]
 			,["html","p:contains('Repeat to add more than one entry.')"
 				,"Repeat to add more than one entry."
 				,"依此类推增加更多调度时间表."]
@@ -677,7 +676,7 @@ var Page 		=
 				,"<br>你可以设置每个客户端最多9个调度."]
 			,["html","p:contains('excluding the default entry.')"
 				,"excluding the default entry."
-				,"不包括缺省调度."]
+				,"不包括默认调度."]
 			,["html","p:contains('In case of overlap, ')"
 				,"In case of overlap, "
 				,"当调度时间有重叠，"]
@@ -686,13 +685,13 @@ var Page 		=
 				,"最长时间的调度将会被取用."]
 			,["html","p:contains('Schedule settings should always be')"
 				,"Schedule settings should always be lower than the default schedule entry."
-				,"调度设置值最好低于缺省调度的时间."]
+				,"调度设置值最好低于默认调度的时间."]
 			,["html","p:contains('The active Maximum Burst Speed')"
 				,"The active Maximum Burst Speed and Hourly Bandwidth Limit will never be set higher than the default entry."
-				,"已启用的最大网络速度与每小时流量限制不能设置低于缺省调度."]
+				,"已启用的最大网络速度与每小时流量限制不能设置低于默认调度."]
 			,["html","p:contains('To change the default entry, ')"
 				,"To change the default entry, "
-				,"<br>如果要修改缺省调度，"]
+				,"<br>如果要修改默认调度，"]
 			,["html","p:contains('alter the Maximum Burst Speed and')"
 				,"alter the Maximum Burst Speed and Hourly Bandwidth Limit values on the Settings page."
 				,"请至主设置页面修改最大网络速度跟每小时流量限制设置值."]
@@ -700,7 +699,7 @@ var Page 		=
 				,"All schedule times are in UTC. As a reference, the current UTC time is"
 				,"所有调度的时区皆使用国际标准时间，做为参考，现在国际标准时间为："]
 			,["attr","input[value='Delete Entry']"		,"value","删除调度"]
-			,["attr","input[value='Apply Schedule']"	,"value","送出设置"]
+			,["attr","input[value='Apply Schedule']"	,"value","确定设置"]
 		]
 	},
 	
@@ -808,14 +807,14 @@ var Page 		=
 			,["html","div.stuffbox div","Adopt-a-Server Days:"	,"服务器认养天数："]
 			
 			,["html","div.stuffbox div h2"	,"Apply BTC to Donation"		,"比特币捐款"]
-			,["attr","div.stuffbox input[name='donate']"		,"value"	,"送出"]
+			,["attr","div.stuffbox input[name='donate']"		,"value"	,"确定"]
 			
 			,["html","div.stuffbox div h2"	,"Apply BTC to Adopt-a-Server"	,"比特币认养服务器"]
 			,["html","#aas_slottype"		,"Select slot duration.."	,"选择认养时长.."]
 			,["html","#aas_slottype"		,"Month"	,"月"]
 			,["html","#aas_slottype"		,"month"	,"每月"]
 			,["html","#aas_slottype"		,"Year"		,"年"]
-			,["attr","div.stuffbox input[name='aas']"			,"value","送出"]
+			,["attr","div.stuffbox input[name='aas']"			,"value","确定"]
 			
 			,["html","#dlvl td.tdon2"
 				,"You did not donate anything yet, but we still love you."
@@ -850,7 +849,7 @@ var Page 		=
 		,"div.ui p a:contains('Manage Folders')"							:"管理文件夹"
 		,"#mgform div[style='float:left']:contains('Galleries active and publicly available')":"画册可用且公开"
 		,"#mgform div[style='float:left']div:contains('Galleries under construction, or being modified')":"画册建设修改中..."
-		,"#mgform div a:contains('Collapse Open Folders')"					:"折叠文档夹"
+		,"#mgform div a:contains('Collapse Open Folders')"					:"折叠文件夹"
 		,"#gtable4 td a:contains('Get Folder BBCode')"						:"取得文件夹 BBCode"
 		,"#mgform span.stdbtn:contains('+ All')" 		:"全选"
 		,"#mgform span.stdbtn:contains('- All')" 		:"全不选"
@@ -889,7 +888,7 @@ var Page 		=
 		,"div.stuffbox a:contains('Reorder or Remove Files')"		:"排序或移除图片"
 		,"div.stuffbox a:contains('Modify Title or Description')"	:"更改标题或叙述"
 		,"div.stuffbox a:contains('Publish Gallery')"				:"发布画册"
-		,"div.stuffbox a:contains('Go to Public Gallery')"			:"来去画册"
+		,"div.stuffbox a:contains('Go to Public Gallery')"			:"返回画册"
 		
 		//Reorder Gallery
 		,"div.stuffbox h1:contains('Reorder Gallery')":"画册排序"
@@ -904,7 +903,7 @@ var Page 		=
 			,["html","#mgform th","Available Actions"	,"可用动作"]
 			,["modi","#mgform"	,{
 				'modiTarget1'		:'tr.gtr1,tr.gtr0'
-				,'>Go To Gallery<'	:'>来去画册<'
+				,'>Go To Gallery<'	:'>返回画册<'
 				,'>Stats<'			:'>画册统计<'
 				,'>Add Files<'		:'>添加图片<'
 				,'>Reorder<'		:'>重新排序<'
@@ -982,7 +981,7 @@ var Page 		=
 				,"有效的图片格式："]
 			,["html","#uploadform td span"
 				,"Accepted Archive Formats:"
-				,"有效的压缩档格式："]
+				,"有效的压缩文件格式："]
 			,["html","#uploadform td span"
 				,"Max File Size: "
 				,"最大文件大小："]
@@ -1257,7 +1256,7 @@ var Page 		=
 				,"这边可设置可接下赏金任务或投稿的猎人最低等级."]
 			,["html","td:contains('The default recommended setting is Rank D,')"
 				,"The default recommended setting is Rank D, "
-				,"<br>缺省的建议设置是分级 D，"]
+				,"<br>默认的建议设置是分级 D，"]
 			,["html","td:contains('which will allow unranked hunters,')"
 				,"which will allow unranked hunters, "
 				,"可让未分级猎人接取任务，"]
@@ -1357,7 +1356,7 @@ var Page 		=
 		,"td.bd2 span:contains('Posted to the E-Hentai Galleries System')":
 			"已在E绅士系统上发表画册"
 		,"td.bd2 span:contains('Archive download at a file locker service')":
-			"文件下载的文档柜服务"
+			"文件下载的文件柜服务"
 		,"td.bd2 span:contains('BitTorrent download at a public tracker')":
 			"公开的BT下载"
 		,"td.bd2 span:contains('Other; specify in bounty description')":
@@ -1598,8 +1597,8 @@ var Page 		=
 	"exhentai.org/":
 	{
 		 "#toppane h1.ih":"E绅士图库：免费的绅士同人志、漫画、图片画册系统"
-		,"#searchbox p.nopm a:contains('Show Advanced Options')"	:"显示高端搜索"
-		,"#searchbox p.nopm a:contains('Show File Search')"			:"显示以图找图"
+		,"#searchbox p.nopm a:contains('Show Advanced Options')"	:"显示高级搜索"
+		,"#searchbox p.nopm a:contains('Show File Search')"			:"显示以图搜图"
 		//列表模式
 		,"div.ido table.itg th:contains('Published')"	:"发表时间"
 		,"div.ido table.itg th:contains('Name')"		:"标题"
@@ -1607,17 +1606,17 @@ var Page 		=
 		
 		,"ReplaceMode":
 		[
-			 ["attr","#searchbox input[name='f_search']",	"placeholder"		,"填此搜索"]
-			,["attr","#searchbox input[name='f_apply']"	,	"value"				,"送出"]
+			 ["attr","#searchbox input[name='f_search']",	"placeholder"		,"输入搜索"]
+			,["attr","#searchbox input[name='f_apply']"	,	"value"				,"确定"]
 			,["attr","#searchbox input[name='f_clear']"	,	"value"				,"清除"]
 			,["attr","#fsdiv input[value='File Search']",	"value"				,"文件搜索"]
 			
-			,["attr","#searchbox p.nopm a:contains('显示高端搜索')"	,	"title"	,"显示/隐藏高端搜索"]
-			,["attr","#searchbox p.nopm a:contains('显示以图找图')"	,	"title"	,"显示/隐藏以图找图"]
+			,["attr","#searchbox p.nopm a:contains('显示高级搜索')"	,	"title"	,"显示/隐藏高级搜索"]
+			,["attr","#searchbox p.nopm a:contains('显示以图搜图')"	,	"title"	,"显示/隐藏以图搜图"]
 			
 			,["modi","#searchbox p.nopm a"	,{
-				"Show Advanced Options"	:"显示高端搜索",
-				"Show File Search"		:"显示以图找图"
+				"Show Advanced Options"	:"显示高级搜索",
+				"Show File Search"		:"显示以图搜图"
 			}]
 			
 			,["modi","#advdiv"	,{
@@ -1644,7 +1643,7 @@ var Page 		=
 				"All public galleries containing this exact file will be displayed.":
 					"任何公开包含此图片档的画册都会被显示.",
 				"For color images, the system can also perform a similarity lookup to find resampled images.":
-					"如果使用彩色图片，系统会侦测画册中最相似的图片.",
+					"如果使用彩色图片，系统会检测画册中最相似的图片.",
 					
 				"Use Similarity Scan"	:"使用图片类似度搜索",
 				"Only Search Covers"	:"只搜索画册封面",
@@ -1662,7 +1661,7 @@ var Page 		=
 			,["html","div.ido p.ip a"	,"Visit the E-Hentai Forums"	,"E绅士论坛"]
 			,["html","div.ido p.ip a"	,"E-Hentai @ Twitter"			,"E绅士推特"]
 			,["html","div.ido p.ip a"	,"Play the HentaiVerse Minigame","E绅士游戏"]
-			,["html","div.ido p.ip a"	,"Lo-Fi Version"				,"E绅士行动版网站"]
+			,["html","div.ido p.ip a"	,"Lo-Fi Version"				,"E绅士移动版网站"]
 			
 		]
 	},
@@ -1675,7 +1674,6 @@ var Page 		=
 		,"#torrentform p a:contains('Unseeded')"		:"无做种"
 		,"#torrentform p a:contains('All Torrents')"	:"全部种子"
 		,"#torrentform p a:contains('Only My Torrents')":"只有我的"
-		
 		,"table.itg th a:contains('Added')"				:"加入时间"
 		,"table.itg th:contains('Torrent Name')"		:"种子名称"
 		,"table.itg th:contains('Gallery')"				:"编号"
@@ -1684,7 +1682,7 @@ var Page 		=
 		,"table.itg th a:contains('Peers')"				:"人数"
 		,"table.itg th a:contains('DLs')"				:"下载"
 		,"table.itg th:contains('Uploader')"			:"上传者"
-		,"div.ido p.ip a:contains('Advanced Gallery/Torrent Search')":"高端画册 / 种子搜索"
+		,"div.ido p.ip a:contains('Advanced Gallery/Torrent Search')":"高级画册 / 种子搜索"
 		,"div.ido p[style*='text-align:center; font-style:italic;']:contains('No hits found')":
 			"<b>无搜索结果</b>"
 		
@@ -1927,10 +1925,10 @@ var Page 		=
 		//Image Size Settings
 		,"label[for='xr_0']" :"自动"
 		//Gallery Name Display
-		,"label[for='tl_r']" :"缺省标题"
+		,"label[for='tl_r']" :"默认标题"
 		,"label[for='tl_j']" :"日文标题 ( 如果可以使用 )"
 		//Archiver Settings
-		,"label[for='ar_0']" :"手动付费，手动下载 (缺省)"
+		,"label[for='ar_0']" :"手动付费，手动下载 (默认)"
 		,"label[for='ar_2']" :"手动付费，自动下载"
 		,"label[for='ar_1']" :"自动付费，手动下载"
 		,"label[for='ar_3']" :"自动付费，自动下载"
@@ -1986,9 +1984,9 @@ var Page 		=
 		//Multi-Page Viewer
 		,"label[for='qb_n']":"不要"
 		,"label[for='qb_y']":"要要"
-		,"label[for='ms_n']":"往左对齐，只有图片大于浏览器宽度才缩略" //Align left; Only scale if image is larger than browser width
-		,"label[for='ms_c']":"中间对齐，只有图片大于浏览器宽度才缩略" //Align center; Only scale if image is larger than browser width
-		,"label[for='ms_y']":"中间对齐，随时缩略图片适应浏览器宽度"   //Align center; Always scale images to fit browser width
+		,"label[for='ms_n']":"往左对齐，只有图片大于浏览器宽度才缩小" //Align left; Only scale if image is larger than browser width
+		,"label[for='ms_c']":"中间对齐，只有图片大于浏览器宽度才缩小" //Align center; Only scale if image is larger than browser width
+		,"label[for='ms_y']":"中间对齐，随时缩小图片适应浏览器宽度"   //Align center; Always scale images to fit browser width
 		,"label[for='mt_n']":"显示"
 		,"label[for='mt_y']":"隐藏"
 		
@@ -2023,7 +2021,7 @@ var Page 		=
 				,"你也可以手动限制图片最大显示大小.</p>"]
 			,["html","div.optmain p"
 				,"Like the automatic scaling, this does not resample the image, "
-				,"这是在线图片自动缩略，不是压缩略图片，"]
+				,"这是在线图片自动缩小，不是压缩图片，"]
 			,["html","div.optmain p"
 				,"as the resizing is done browser-side."
 				,"会在浏览器中这一端完成."]
@@ -2039,11 +2037,11 @@ var Page 		=
 				,"很多画册会同时具有英文及日文标题，"]
 			,["html","div.optmain p"
 				,"Which gallery name would you like to see as default?"
-				,"你想要缺省看到哪一种??"]
+				,"你想要默认看到哪一种??"]
 			//Archiver Settings
 			,["html","div.optmain p"
 				,"The default behavior for the Archiver is to confirm the \"cost\" for downloading an archive, "
-				,"选择付费打包下载画册缺省行为，"]
+				,"选择付费打包下载画册默认行为，"]
 			,["html","div.optmain p"
 				,"then present a link that can be clicked or copied elsewhere. You can change this behavior here."
 				,"然后显示下载链接可以点击或在别处下载，你可以在这边改变确认与付费方式。"]
@@ -2056,14 +2054,14 @@ var Page 		=
 				,"是否要在首页显示热门画册??"]
 			,["html","div.optmain p"
 				,"What categories would you like to view as default on the front page?"
-				,"首页缺省要显示什么类别的画册??"]
+				,"首页默认要显示什么类别的画册??"]
 			//Favorites
 			,["html","div.optmain p"
 				,"Here you can choose and rename your favorite categories."
 				,"这里可以选择和重命名收藏类别."]
 			,["html","div.optmain p"
 				,"You can also select your default sort order for galleries on your favorites page. "
-				,"<p>你也可以选择收藏中缺省的画册排序.</p>"]
+				,"<p>你也可以选择收藏中默认的画册排序.</p>"]
 			,["html","div.optmain p"
 				,"Note that favorites added prior to the March 2016 revamp did not store a timestamp, "
 				,"请注意，在2016三月改版之前加入收藏夹的画册并未保存时间戳，"]
@@ -2073,7 +2071,7 @@ var Page 		=
 			//Ratings
 			,["html","div.optmain p"
 				,"By default, galleries that you have rated will appear with red stars for ratings of 2 stars and below, "
-				,"缺省中，被你评分的画册，2星以下显示红色，"]
+				,"默认中，被你评分的画册，2星以下显示红色，"]
 			,["html","div.optmain p"
 				,"green for ratings between 2.5 and 4 stars, and blue for ratings of 4.5 or 5 stars."
 				,"2.5星到4星显示绿色，4.5到5星显示蓝色."]
@@ -2085,7 +2083,7 @@ var Page 		=
 				,"每一个字符代表一星. "]
 			,["html","div.optmain #ru2"
 				,"The default RRGGB means R\\(ed\\) for the first and second star, G\\(reen\\) for the third and fourth, "
-				,"<br>缺省RRGGB代表着R为红色，G为绿色，"]
+				,"<br>默认RRGGB代表着R为红色，G为绿色，"]
 			,["html","div.optmain #ru2"
 				,"and B\\(lue\\) for the fifth. You can also use \\(Y\\)ellow for the normal stars."
 				,"B为蓝色. <br>你也可以使用黄色Y."]
@@ -2095,7 +2093,7 @@ var Page 		=
 			//Tag Namespaces
 			,["html","div.optmain p"
 				,"If you want to exclude certain namespaces from a default tag search, "
-				,"如果你想要在缺省搜索排除一些标记的画册，"]
+				,"如果你想要在默认搜索排除一些标记的画册，"]
 			,["html","div.optmain p"
 				,"you can check those below."
 				,"请注意下面."]
@@ -2150,7 +2148,7 @@ var Page 		=
 				,"请选择首页使用列表模式鼠标放在项目上加载预览图片的时机"]
 			,["html","div.optmain p"
 				,"You can set a default thumbnail configuration for all galleries you visit."
-				,"你可以设置缺省的缩略图数量与大小."]
+				,"你可以设置默认的缩略图数量与大小."]
 			,["html","div.optmain div.optsub td"
 				,"Size: "
 				,"大小"]
@@ -2231,7 +2229,7 @@ var Page 		=
 			,["html","div.optmain a[href*='mpv']:contains('demo')"		,"demo","范例网页"]
 			,["html","div.optmain p","Multi-Page Viewer Display Style:"	,"多页浏览显示样式："]
 			,["html","div.optmain p","Multi-Page Viewer Thumbnail Pane:","多页浏览显示缩略图区："]
-			,["attr","input[value='Apply']","value","送出"]
+			,["attr","input[value='Apply']","value","确定"]
 		]
 	},
 	
@@ -2605,7 +2603,7 @@ var Page 		=
 				,"修理熊科技的顶尖之作，"]
 			,["html","td"
 				,"providing the ultimate in-the-field preventive equipment maintenance."
-				,"提供这门领域最高端的预防性装备维护技术.<br>"]
+				,"提供这门领域最高级的预防性装备维护技术.<br>"]
 			,["html","td"
 				,"Equipment wear is fully eliminated, and defeat durability loss is cut by half."
 				,"装备耗损完全消除，被<a href='http://zh.scratchpad.wikia.com/wiki/Battles#.E6.95.97.E5.8C.97'>击倒</a>时的耐久度损耗减半."]
@@ -2777,7 +2775,7 @@ var Page 		=
 			
 			,["html","option[value='delete']"						,"Remove from Favorites"	,"移除收藏"]
 			,["attp","optgroup[label='Change Favorite Category']"	,"label" ,"Change Favorite Category"		,"转移项目至收藏："]
-			,["attr","input[name='apply']"							,"value"			,"送出"]
+			,["attr","input[name='apply']"							,"value"			,"确定"]
 			,["html","form[name='favform']:eq(0) div:eq(2)","Action:","动作："]
 		]
 	},
@@ -2929,7 +2927,7 @@ var Page 		=
 			,["attr","img[title='Open image in normal viewer']","title"
 				,"使用普通阅览模式开启图片"]
 			,["attr","img[title='Show galleries with this image']","title"
-				,"以图找图"]
+				,"以图搜图"]
 			,["attr","img[title='Get forum link to image']","title"
 				,"取得论坛链接"]
 			*/
@@ -2940,11 +2938,11 @@ var Page 		=
 	"g.e-hentai.org/s/":
 	{
 		 "a[href*='f_shash=']:contains('Show all galleries with this file')":
-			"显示此图片相关画册(以图找图)"
+			"显示此图片相关画册(以图搜图)"
 		,"a[onclick*='Copy the URL below.']:contains('Generate a static forum image link')":
-			"产生论坛用静态贴图链接"
+			"生成论坛用静态贴图链接"
 		,"a[id='loadfail']:contains('Click here if the image fails loading')":
-			"点我刷新失连图片"
+			"点我刷新载入失败图片"
 		,"ReplaceMode":
 		[
 			 ["html","a[href*='fullimg.php']","Download original"	,"下载原始图片："]
@@ -2961,11 +2959,11 @@ var Page 		=
 	"exhentai.org/s/":
 	{
 		 "a[href*='f_shash=']:contains('Show all galleries with this file')":
-			"显示此图片相关画册(以图找图)"
+			"显示此图片相关画册(以图搜图)"
 		,"a[onclick*='Copy the URL below.']:contains('Generate a static forum image link')":
-			"产生论坛用静态贴图链接"
+			"生成论坛用静态贴图链接"
 		,"a[id='loadfail']:contains('Click here if the image fails loading')":
-			"点我刷新失连图片"
+			"点我刷新载入失败图片"
 		,"ReplaceMode":
 		[
 			 ["html","a[href*='fullimg.php']","Download original"	,"下载原始图片："]
@@ -2988,7 +2986,7 @@ var Page 		=
 		[
 			 ["html","#db div","Download Cost:"				,"下载花费："]
 			,["html","#db div","Estimated Archive Size:"	,"预估大小："]
-			,["attr","#db input[value='Download Archive']"	,"value","下载包装档"]
+			,["attr","#db input[value='Download Archive']"	,"value","下载压缩包"]
 			,["html","#db p"
 				,"Note: Pressing this button will immediately deduct funds."				
 				,"注意事项：按下按钮将立即扣除代币."]
@@ -3004,7 +3002,7 @@ var Page 		=
 		 "#galpop p:contains('Please choose a color to file this favorite gallery under. You can also add a note to it if you wish.')":
 			"请选择一个收藏色作为识别，你也可以加入注记."
 		,"#galpop p:contains('Favorite Note (Max 200 Characters)')":
-			"收藏注记 ( 最多 200 英文本元 )"
+			"收藏注记 ( 最多 200 英文本母 )"
 		,"#galpop div.nosel div[onclick*='favdel']:contains('Remove from Favorites')":
 			"移除收藏"
 		//删除类
@@ -3016,7 +3014,7 @@ var Page 		=
 		,"#galpop a:contains('Close Window')":"关闭窗口"
 		
 		//改名类
-		,"#galpop p:contains('Roman Script')"	:"缺省标题 ( Roman Script )"
+		,"#galpop p:contains('Roman Script')"	:"默认标题 ( Roman Script )"
 		,"#galpop p:contains('Japanese Script')":"次要标题 ( Japanese Script )"
 		,"#galpop td:contains('Uploader:')"		:"上传者："
 		,"#galpop td:contains(' New')"			:"添加"
@@ -3027,7 +3025,7 @@ var Page 		=
 			//收藏类
 			 ["html","#galpop div","favorite note slots used.","个收藏注记已被使用."]
 			,["attr","input[value='Add to Favorites']"	,"value","加入收藏"]
-			,["attr","input[value='Apply Changes']"		,"value","送出修改"]
+			,["attr","input[value='Apply Changes']"		,"value","确定修改"]
 			
 			//删除类
 			,["html","label[for='exp5']"	
@@ -3056,22 +3054,22 @@ var Page 		=
 				,"此画册没有任何删除请愿书"]
 			,["attr","input[value='Back']"		,"value","上一页"]
 			//改名类
-			,["attr","input[value='Submit']"	,"value","送出"]
+			,["attr","input[value='Submit']"	,"value","确定"]
 		]
 	},
 	
 	"report.php":
 	{
-		 "div.stuffbox td:contains('Report Category:')"		:"检举类型："
+		 "div.stuffbox td:contains('Report Category:')"		:"举报类型："
 		,"div.stuffbox td:contains('Specify Complaint:')"	:"说明内容："
-		,"div.stuffbox td:contains('Contact E-Mail:')"		:"电子信箱："
+		,"div.stuffbox td:contains('Contact E-Mail:')"		:"电子邮箱："
 		,"div.stuffbox td:contains('(Required)')"			:"( 必须 )"
 		,"div.stuffbox td:contains('(Optional)')"			:"( 选填 )"
 		,"div.stuffbox a[target='tos']"						:"帮助说明"
 		
 		,"ReplaceMode":
 		[
-			 ["attr","input[value='Submit Report']","value","送出检举"]
+			 ["attr","input[value='Submit Report']","value","确定举报"]
 			,["html","div.stuffbox p"
 				,"Reporting content from:"
 				,"回报项目来自于："]
@@ -3085,29 +3083,29 @@ var Page 		=
 				,"Other ToS-infringing Content"		,"其他服务类型侵权内容"]
 			,["html","div.stuffbox p"
 				,"If you leave your e-mail address, we may contact you with the result of, "
-				,"如果你有留下电子信箱，有结果时我们将会联系，"]
+				,"如果你有留下电子邮箱，有结果时我们将会联系，"]
 			,["html","div.stuffbox p"
 				,"or further inquiries regarding your report."
-				,"或更进一步审查你的检举."]
+				,"或更进一步审查你的举报."]
 			,["html","div.stuffbox p"
 				,"The e-mail address will not be used for any other purposes, "
-				,"<br>电子信箱并不会做其他用途，"]
+				,"<br>电子邮箱并不会做其他用途，"]
 			,["html","div.stuffbox p"
 				,"and will be removed from our systems when the report has been processed."
-				,"并且电子信箱在检举处理完毕后会从我们的系统中移除."]
+				,"并且电子邮箱在举报处理完毕后会从我们的系统中移除."]
 				
 			,["html","div.stuffbox p"
 				,"For Copyright Infringement complaints, "
 				,"关于版权投诉，"]
 			,["html","div.stuffbox p"
 				,"please make sure to include enough information that we can accurately verify your claim."
-				,"请务必包含足够的消息，我们才可以准确地验证你的检举."]
+				,"请务必包含足够的消息，我们才可以准确地验证你的举报."]
 			,["html","div.stuffbox p"
 				,"A specific list of required information can be found at the bottom of"
 				,"<br>所需的具体信息可在此页的底部找到："]
 			,["html","div.stuffbox p"
 				,"Complaints that do not sufficiently support your claim will be rejected."
-				,"如果信息不够完整你的检举将被拒绝."]
+				,"如果信息不够完整你的举报将被拒绝."]
 				
 		]
 	}
@@ -3421,7 +3419,7 @@ function make_gd3() { //画册内信息
     //array_EN_CH.push([">Resized:<"		, ">缩放大小:<"]);
     array_EN_CH.push([">Parent:<"			, ">画册来自:<"]);
     array_EN_CH.push([">Visible:<"			, ">是否可见:<"]);
-    array_EN_CH.push([">File Size:<"		, ">文档大小:<"]);
+    array_EN_CH.push([">File Size:<"		, ">文件大小:<"]);
     array_EN_CH.push([">Length:<"			, ">画册页数:<"]);
     array_EN_CH.push([">Language:<"			, ">语言类型:<"]);
     array_EN_CH.push([">Rating:<"			, ">评分:<"]);
@@ -3473,7 +3471,7 @@ function make_gd5() { //画册内设置
     array_EN_CH.push([">Show Gallery Stats<", ">显示画册统计<"]);
     array_EN_CH.push([">Petition to Expunge<", ">申请删除<"]);
     array_EN_CH.push([">Petition to Rename<", ">申请改名<"]);
-    array_EN_CH.push([">Report Gallery<"	, ">检举画册<"]);
+    array_EN_CH.push([">Report Gallery<"	, ">举报画册<"]);
     array_EN_CH.sort(DescByLength); 	//进行排序
     return array_EN_CH;
 }
@@ -4160,7 +4158,7 @@ var tData={
 	"novel":"小说",
 	"paperchild":"纸孩",
 	"redraw":"重绘",
-	"screenshots":"截屏",
+	"screenshots":"截图",
 	"story arc":"故事框架",
 	"tankoubon":"单行本",
 	"themeless":"无题",
@@ -4730,6 +4728,7 @@ function TagListChange(){
 	var taglist = document.getElementById("taglist");	//TAG列表
 	var tab 	= taglist.getElementsByTagName("table").item(0);//TAG清单里的表格
 	if(!tab) return;
+	
 	var rowsl 	= tab.rows.length;						//行数
 	
 	for(var ir 	= 0;ir < rowsl;ir++){
