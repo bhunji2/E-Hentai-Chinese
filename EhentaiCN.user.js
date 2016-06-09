@@ -3,7 +3,7 @@
 // @namespace    Exhentai_叶海晨星
 // @namespace    Tast
 // @namespace    2016+, Mapaler <mapaler@163.com>
-// @version      0.43
+// @version      0.44
 // @description  E绅士中文化
 // @author       Tast
 // @include      *://exhentai.org/*
