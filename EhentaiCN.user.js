@@ -3,7 +3,7 @@
 // @namespace    Exhentai_叶海晨星
 // @namespace    Tast
 // @namespace    2016+, Mapaler <mapaler@163.com>
-// @version      0.44
+// @version      0.54
 // @description  E绅士中文化
 // @author       Tast
 // @include      *://exhentai.org/*
@@ -14,18 +14,17 @@
 // @icon         http://exhentai.org/favicon.ico
 // @require      https://code.jquery.com/jquery-1.12.3.min.js
 // @require 	 https://greasyfork.org/scripts/20286-chinesetr/code/ChineseTR.js
+// @updateURL 	 http://tast.banner.tw/Javascript/EHentai/Ehentai.user.js
 // ==/UserScript==
 //==============================================变量声明==============================================
-// @include      *://g.e-hentai.org/*
-// @include      *://upload.e-hentai.org/*
-// @include      *://repo.e-hentai.org/*
+// @resource 	 testjs		http://tast.banner.tw/Javascript/EHentai/Ehentai.user.js
 // @require      https://code.jquery.com/jquery-1.12.4.min.js
 // @require      https://code.jquery.com/jquery-2.2.4.min.js
 // @require 	 https://greasyfork.org/scripts/20312-e-hentai-tag-list-for-chinese/code/E-Hentai%20Tag%20list%20for%20Chinese.js?version=130078
-// @updateURL 	 http://tast.banner.tw/Javascript/EHentai/Ehentai.user.js
 // @require		 https://greasyfork.org/scripts/20341-eh-chinese-cn-lib-js/code/EH-chinese_CNlibjs.js?version=130143
 //======================================================================================================================
 //cookie nw = 1 表站内容物不警告
+//1 USD = BTC/USD.
 
 //alert(JSON.stringify(Page_CN));
 var url	 		= window.location.href;
@@ -707,22 +706,35 @@ var Page 		=
 	
 	"bitcoin.php":
 	{
-		 "div.stuffbox h2:contains('Bitcoin Donation')"				:"Bitcoin Donation 比特币赞助捐款 ( 仅翻译部分 )"
+		 "div.stuffbox h2:contains('Bitcoin Donation')"				:
+			 "Bitcoin Donation 比特币赞助捐款 ( 仅翻译主要部分 )<br>"
+			+"( <a href='http://zh.scratchpad.wikia.com/wiki/Donation' target='_bank'><font color='green'><b>"
+			+"相关说明参考数据"
+			+"</a></b></font> )<br>"
+			+"围纪实验室"
+			
 		,"div.stuffbox p:contains('Your Wallet Address:')"			:"你的钱包地址："
 		,"div.stuffbox p:contains('Send Address Information')"		:"钱包地址发送说明"
 		,"div.stuffbox p a:contains('Request New Address')"			:"要求新地址"
-		,"div.stuffbox p:contains('Incoming Bitcoin Transactions')"	:"比特币入帐状况"
+		,"div.stuffbox p:contains('Incoming Bitcoin Transactions')"	:
+			 "比特币入帐状况"
+			+"<br><font color='blue'>Pending</font>：<font color='gray'>正在处理</font>｜"
+			+"<font color='green'>Confirmed</font>：<font color='black'>入帐完成</font>"
+			//+"<br>Confirmed：入帐完成"
 		,"div.stuffbox h2:contains('Bitcoin Spending History')"		:"比特币花费纪录"
-		,"div.stuffbox h2:contains('Donation Log')"					:"捐款记录"
+		,"div.stuffbox h2:contains('Donation Log')"					:"捐款记录 ( 美金 )"
 		,"div.stuffbox h2:contains('Adopt-a-Server Log')"			:"认养记录"
 		
 		
 		,"#tdon th:contains('Donation Level')"	:"赞助等级"
 		,"#tdon th:contains('EXP Bonus')"		:"经验加成"
-		,"#tdon th:contains('Daily Bonus')"		:"每日加成"
-		,"#tdon th:contains('Daily Hath')"		:"每日骇斯"
+		,"#tdon th:contains('Daily Bonus')"		:"每日赠币"
+		,"#tdon th:contains('Daily Hath')"		:"每日骇斯币"
 		,"#tdon th:contains('Free Archives')"	:"免费打包"
 		,"#dlvl td.tdon1:contains('None')"		:"尚未赞助"
+		,"#tdon td.tdon1:contains('None')"		:"尚未赞助"
+		,"#tdon td.tdon2:contains('You did not donate anything yet, but we still love you.')":
+			"你还没有赞助，但我们依然感谢你."
 		
 		
 		,"ReplaceMode":
@@ -738,7 +750,6 @@ var Page 		=
 			 ["html","div.stuffbox p:contains('account or otherwise blocks your transfer.')"
 				,"Bitcoin is a virtual currency that is completely decentralized and independent of any formal authority."
 				,"比特币是虚拟性质的货币，分散性地独立于任何机构之外."]
-				//,"比特币是虚拟性质的货币，分散性地独立于任何巨擘."]
 			,["html","div.stuffbox p:contains('account or otherwise blocks your transfer.')"
 				,"Much like real money, you can spend Bitcoins however you wish, "
 				,"如同现实货币，你可以按照自己的心愿花费比特币，"]
@@ -778,7 +789,7 @@ var Page 		=
 				,"<br>我们目前使用7天和24小时中最高的加权平均，由"]
 			,["html","div.stuffbox p:contains('random volatility. Current rate is ')"
 				,", plus a 10% bonus to cover transaction fees and random volatility. Current rate is "
-				," 提供，加上10%的奖金以支付手续费和币值波动. 现在的转换率："]
+				," 提供，附加总额 10% 的额外奖励用于支付手续费和应对随机波动率. 现在的汇率："]
 			
 			,["html","div.stuffbox p:contains('is actually in the E-Hentai system.')"
 				,"You can use this form to send someone a PM from the gallery system with your wallet address."
@@ -794,7 +805,7 @@ var Page 		=
 			
 			,["html","div.stuffbox div","Available Balance:"	,"可用余额："]
 			,["html","div.stuffbox div","Donation Total:"		,"捐款总计："]
-			,["html","div.stuffbox div","Adopt-a-Server Days:"	,"认养天数："]
+			,["html","div.stuffbox div","Adopt-a-Server Days:"	,"服务器认养天数："]
 			
 			,["html","div.stuffbox div h2"	,"Apply BTC to Donation"		,"比特币捐款"]
 			,["attr","div.stuffbox input[name='donate']"		,"value"	,"送出"]
@@ -824,7 +835,9 @@ var Page 		=
 			,["html","#tdon td.tdon2","Awarded for a total donation of \\$100."	,"赞助满 $100 获得."]
 			,["html","#tdon td.tdon2","Awarded for a total donation of \\$50."	,"赞助满 $50 获得."]
 			,["html","#tdon td.tdon2","Awarded for a total donation of \\$20."	,"赞助满 $20 获得."]
-			
+			,["html","#tdon td.tdon5","Credits"	,"<font color='Teal'>绅士币</font>"]
+			,["html","#tdon td.tdon5","GP"		,"<font color='RoyalBlue'>图币</font>"]
+			,["html","#tdon td.tdon6","Hath"	,"<font color='DarkOrchid'>骇斯币</font>"]
 			,["html","#tdon td.tdon7"," / day"," / 日"]
 		]
 	},
@@ -876,6 +889,7 @@ var Page 		=
 		,"div.stuffbox a:contains('Reorder or Remove Files')"		:"排序或移除图片"
 		,"div.stuffbox a:contains('Modify Title or Description')"	:"更改标题或叙述"
 		,"div.stuffbox a:contains('Publish Gallery')"				:"发布画册"
+		,"div.stuffbox a:contains('Go to Public Gallery')"			:"来去画册"
 		
 		//Reorder Gallery
 		,"div.stuffbox h1:contains('Reorder Gallery')":"画册排序"
@@ -1269,9 +1283,9 @@ var Page 		=
 	{
 		//分类框
 		 "#lb a:contains('Bounty List')"						:"悬赏列表"
-		,"#lb a:contains('Most Wanted Standard Bounties')"		:"标准悬赏类"
-		,"#lb a:contains('Most Wanted Translation Bounties')"	:"翻译悬赏类"
-		,"#lb a:contains('Most Wanted Editing Bounties')"		:"补充悬赏类"
+		,"#lb a:contains('Most Wanted Standard Bounties')"		:"标准悬赏榜"
+		,"#lb a:contains('Most Wanted Translation Bounties')"	:"翻译悬赏榜"
+		,"#lb a:contains('Most Wanted Editing Bounties')"		:"补充悬赏榜"
 		,"#lb a:contains('Post New Bounty')"					:"发起悬赏"//
 		//悬赏列表
 		,"h1.ih:contains('Showing All Open Bounties')"			:"显示<font color='blue'>开放式</font>悬赏"
@@ -1300,9 +1314,9 @@ var Page 		=
 		,"table.itg td.itd span:contains('Closed/Completed')"	:"关闭 / 完成"
 		,"div.stuffbox div:contains('You are currently an Unranked Bounty Hunter.')": "猎人等级尚未分级"
 		//悬赏榜单类
-		,"div.stuffbox p:contains('Most Wanted Standard Bounties')"		:"标准悬赏类"
-		,"div.stuffbox p:contains('Most Wanted Translation Bounties')"	:"翻译悬赏类"
-		,"div.stuffbox p:contains('Most Wanted Editing Bounties')"		:"补充悬赏类"
+		,"div.stuffbox p:contains('Most Wanted Standard Bounties')"		:"标准悬赏榜"
+		,"div.stuffbox p:contains('Most Wanted Translation Bounties')"	:"翻译悬赏榜"
+		,"div.stuffbox p:contains('Most Wanted Editing Bounties')"		:"补充悬赏榜"
 		,"td.bd1:contains('Bounty Poster:')"	:"悬赏发起者："
 		,"td.bd1:contains('Posted Date:')"		:"发起时间："
 		,"td.bd1:contains('Bounty Status:')"	:"悬赏状态："
@@ -1394,6 +1408,11 @@ var Page 		=
 			,["html","#searchform select.stdinput[name='s']",">Bounties Completed By Me<"	,">我完成的<"]
 			,["attr","input[value='Search Bounties']"	,	"value","搜索悬赏"]
 			,["attr","input[value='Clear']"				,	"value","清除"]
+			//悬赏榜单类
+			,["html","div.stuffbox span:contains('\\< Prev 10')","Prev 10","前 10 项"]
+			,["html","div.stuffbox span:contains('Next 10 \\>')","Next 10","后 10 项"]
+			,["html","div.stuffbox a:contains('\\< Prev 10')"	,"Prev 10","前 10 项"]
+			,["html","div.stuffbox a:contains('Next 10 \\>')"	,"Next 10","后 10 项"]
 			//悬赏内容页
 			,["attr","img[title='Contact Poster']","title","跟他联系"]
 			,["html","p[id='lb']"
@@ -1414,7 +1433,7 @@ var Page 		=
 				,"你可以随时撤销这个额外的奖金."]
 			,["html","div.brd p"
 				,"Note however that you will have no saying in whether a claim for the bounty is accepted or not."
-				,"<br>请注意，悬赏服务被接受之后就无法反悔."]
+				,"<br>请注意，悬赏投稿被接受之后就无法反悔."]
 			,["html","div.brd p"
 				,"If this bounty is cancelled, your funds will be automatically returned to you."
 				,"<br>如果悬赏被取消，你的投资将会自动返还."]
@@ -1424,12 +1443,19 @@ var Page 		=
 			,["html","div.brd p"
 				,"You can no longer add rewards for this bounty."
 				,"此悬赏不可额外加码."]
+				
+			,["html","div.brd p strong:contains('Credits')"	,"Credits"	,"<font color='RoyalBlue'>绅士币</font>"]
+			,["html","div.brd p strong:contains('Hath')"	,"Hath"		,"<font color='DarkOrchid'>骇斯币</font>"]
+			,["html","div.brd p strong:contains('5000C')"	,"5000C"	,"5000 <font color='RoyalBlue'>绅士币</font>"]
 			,["html","div.brd p"," or "					," 或是 "]
-			,["html","div.brd p"," Less than "			," 少于 "]
-			,["html","div.brd p"," will not bump."		," 将不会延长悬赏时间."]
+			,["html","div.brd p"," Less than "			," <br>少于 "]
+			,["html","div.brd p"," will not bump."		," 将不会延长悬赏时间和或提升榜单排名."]
 			,["html","div.brd p","You currently have"	,"你拥有"]
 			,["html","div.brd p"," and "				," 和 "]
-			,["attr","input[value='Submit Additional Reward']",	"value"	,"送出额外加码"]
+			,["html","div.brd form p"," C \\+ "				," <font color='RoyalBlue'>绅士币</font> + "]
+			,["html","div.brd form p"," Hath "				," <font color='DarkOrchid'>骇斯币</font> "]
+			
+			,["attr","input[value='Submit Additional Reward']",	"value"	,"我要加码!"]
 			,["html","div.bcl td"
 				,"Comments from Bounty Poster:"
 				,"悬赏发起者："]
@@ -1448,6 +1474,9 @@ var Page 		=
 			,["html","div.bcl td"
 				,"争议投稿时间剩下： None"
 				,"争议投稿时间剩下： 无"]
+				
+			,["html","div.stuffbox div[style*='wanted.png'] p"," Credits \\+ "," <font color='RoyalBlue'>绅士币</font> + "]
+			,["html","div.stuffbox div[style*='wanted.png'] p"," Hath"," <font color='DarkOrchid'>骇斯币</font>"]
 			,["html","div.stuffbox > div:eq(1) p"
 				,"Bounties that are "
 				,"悬赏状态属于"]
@@ -1550,7 +1579,7 @@ var Page 		=
 				,"<br>所有的信息都必须包含在投稿项目里面."]
 			,["html","div.stuffbox > div:eq(1) p"
 				,"IN ORDER TO CLAIM A BOUNTY, YOU HAVE TO POST A DEPOSIT OF 1000 CREDITS."
-				,"投稿时，你必须付出押金 1000 绅士币."]
+				,"投稿时，你必须付出押金 1000 <font color='RoyalBlue'>绅士币</font>."]
 			,["html","div.stuffbox > div:eq(1) p"
 				,"THIS IS RETURNED TO YOU IF THE CLAIM IS ACCEPTED, "
 				,"<br>如果投稿被接受押金会退还，"]
@@ -1596,7 +1625,7 @@ var Page 		=
 				,"Search Gallery Tags"			:"搜索图册标签"
 				,"Search Gallery Description"	:"搜索图册描述"
 				,"Search Torrent Filenames"		:"搜索种子文件名称"
-				,"Search Low-Power Tags"		:"搜索低等的图册标签"
+				,"Search Low-Power Tags"		:"搜索低评价的图册标签"
 				,"Show Expunged Galleries"		:"显示隐藏图册"
 				,"Only Show Galleries With Torrents":"只显示有种子的图册"
 				,"Search Downvoted Tags"		:"搜索低评价的标签"
@@ -1625,7 +1654,9 @@ var Page 		=
 			,["html","div.ido p.ip"							,"Showing"	,"显示"]
 			,["html","div.ido p.ip"							,"of"		,"共有"]
 			,["html","div.itg div.id1 div.id42"				,"files"	,"页"]
-			,["attr","div.itg img.tn[src*='.org/g/t.png']"	,"title","本画册附有种子"]
+			,["attp","img.tn[src*='.org/img/t.png']"		,"title"
+				,"Torrents exist for this gallery"
+				,"本画册附有种子"]
 			,["html","#pt","Popular Right Now"				,"热门画册显示区"]
 			,["html","div.ido p.ip a"	,"Visit the E-Hentai Main Site"	,"E绅士主站"]
 			,["html","div.ido p.ip a"	,"Visit the E-Hentai Forums"	,"E绅士论坛"]
@@ -1640,8 +1671,11 @@ var Page 		=
 	{
 		 "div.ido h1.ih:contains('Torrents')"			:"BT种子列表"
 		,"#torrentform p a:contains('All')"				:"全部"
+		,"#torrentform p a:contains('Seeded')"			:"已做种"
+		,"#torrentform p a:contains('Unseeded')"		:"无做种"
 		,"#torrentform p a:contains('All Torrents')"	:"全部种子"
 		,"#torrentform p a:contains('Only My Torrents')":"只有我的"
+		
 		,"table.itg th a:contains('Added')"				:"加入时间"
 		,"table.itg th:contains('Torrent Name')"		:"种子名称"
 		,"table.itg th:contains('Gallery')"				:"编号"
@@ -1651,6 +1685,8 @@ var Page 		=
 		,"table.itg th a:contains('DLs')"				:"下载"
 		,"table.itg th:contains('Uploader')"			:"上传者"
 		,"div.ido p.ip a:contains('Advanced Gallery/Torrent Search')":"高端画册 / 种子搜索"
+		,"div.ido p[style*='text-align:center; font-style:italic;']:contains('No hits found')":
+			"<b>无搜索结果</b>"
 		
 		,"ReplaceMode":
 		[
@@ -1694,6 +1730,9 @@ var Page 		=
 		,"#expungeform a:contains('Vote to Expunge')"	:"投票隐藏"
 		,"div.stuffbox a:contains('Close Window')"		:"关闭窗口"
 		
+		//编辑种子
+		,"#torrentinfo td[style='font-weight:bold']:contains('Torrent Name')"	:"<br>种子名称"
+		,"#torrentinfo td[style='font-weight:bold']:contains('Comments')"		:"<br>评论注释"
 		
 		,"ReplaceMode":
 		[
@@ -1735,7 +1774,9 @@ var Page 		=
 			,["html","#etd"
 				,"No comments were given for this torrent."	
 				,"尚未有任何本种子评论."]
-			,["attr","input[name='list']","value","回列表页"]
+			,["attr","input[value='Back to Index']"	,"value","回列表页"]
+			,["attr","input[value='Modify']"		,"style","width:100px"]
+			,["attr","input[value='Modify']"		,"value","编辑种子"]
 		]
 	},
 	
@@ -1859,7 +1900,8 @@ var Page 		=
 	
 	"uconfig.php":
 	{
-		 "#outer h1:contains('Settings')"				:"个人设置"
+		 "#msg:contains('Settings were updated')"		:"<font color='Green'><b>设置已更新完毕</b></font>"
+		,"#outer h1:contains('Settings')"				:"个人设置"
 		,"#outer h2:contains('Image Load Settings')"	:"图片加载"
 		,"#outer h2:contains('Image Size Settings')"	:"图片大小"
 		,"#outer h2:contains('Gallery Name Display')"	:"画册名称"
@@ -2598,7 +2640,7 @@ var Page 		=
 		,"strong:contains('High')"					:"最高"
 		,"strong:contains('Low')"					:"最低"
 		,"strong:contains('Avg')"					:"平均"
-		,"strong:contains('Vol')"					:"数量"
+		,"strong:contains('Vol')"					:"规模"
 		,"h3:contains('Bid (Buyers)')"				:"出价 ( 买家 )"
 		,"h3:contains('Ask (Sellers)')"				:"询价 ( 卖家 )"
 		,"#historytable th:contains('Time')"		:"时间"
@@ -2671,7 +2713,7 @@ var Page 		=
 		
 		,"ReplaceMode":
 		[
-			//Credit Log
+			//Credit Log - Normal
 			 ["html","div[style='overflow:hidden']" ,"GP Exchange Transaction "		
 				,"<font color='RoyalBlue'>图币</font>交易 "]
 			,["html","div[style='overflow:hidden']" ,"Hath Exchange Transaction "	
@@ -2683,11 +2725,18 @@ var Page 		=
 			,["html","div[style='overflow:hidden']" ," kGP "	
 				," <font color='RoyalBlue'>千图币</font> "]
 			,["html","div[style='overflow:hidden']" ," Hath "	
-				," <font color='DarkOrchid'>个骇斯</font> "]
+				," <font color='DarkOrchid'>骇斯币</font> "]
 			,["html","div[style='overflow:hidden']" ," @ "		
 				," (单价) "]
-			,["html","div[style='overflow:hidden']" ," C\\)"	
+			,["html","div[style='overflow:hidden']" ," C\\)"
 				," <font color='Teal'>绅士币</font>]"]
+			//Credit Log - Donation
+			,["html","div[style='overflow:hidden']" ," Donation "
+				," <font color='Gray'>美金</font>捐款 "]
+			,["html","div[style='overflow:hidden']" ,"\\(Refunded "
+				," ( <font color='green'>返还</font> "]
+			,["html","div[style='overflow:hidden']" ," Hath\\)"
+				," <font color='DarkOrchid'>骇斯币</font> )"]
 			//Karma Log
 			,["html","div:contains('Total Karma: ')"
 				,"Total Karma: "
@@ -2732,6 +2781,7 @@ var Page 		=
 			,["html","form[name='favform']:eq(0) div:eq(2)","Action:","动作："]
 		]
 	},
+	
 	//画册模式
 	"GalleryMode":
 	{
@@ -2803,13 +2853,14 @@ var Page 		=
 				,"Not Yet Rated"		:"未有评分"
 				,"modiTarget2"			:"#favcount"
 				,"times"				:"次"
+				,"Once"					:"1 次"
 				,"modiTarget3"			:"#favoritelink"
 				,"Add to Favorites"		:"加入收藏"
 			}]
 			,["modi","#tagmenu_act"	,{
 				 ">Vote Up<"				:"><font color='green'>加分</font><"
 				,">Vote Down<"				:"><font color='red'>扣分</font><"
-				,">Show Tagged Galleries<"	:">显示此标签的画册<"
+				,">Show Tagged Galleries<"	:"><font color='darkblue'>显示此标签的画册</font><"
 				,">Show Tag Definition<"	:">显示标签定义(英文)<"
 				,">Add New Tag<"			:">添加标签<"
 				,">Withdraw Vote<"			:">取消分数<"
@@ -2930,7 +2981,9 @@ var Page 		=
 	
 	"archiver.php":
 	{
-		 "#db p:contains('Current Funds:')":"现有代币："
+		 "#db p:contains('Current Funds:')"	:"现有代币："
+		,"#db strong:contains('Free!')"		:"免费!"
+		 
 		,"ReplaceMode":
 		[
 			 ["html","#db div","Download Cost:"				,"下载花费："]
@@ -3499,7 +3552,7 @@ var rData={
 	"female"	:"女角色",
 	"male"		:"男角色",
 	"misc"		:"杂　项",
-	"reclass"	:"重归类",
+	"reclass"	:"重归类"
 }
 //TAG翻译数据库
 var tData={
@@ -4606,6 +4659,7 @@ var tData={
 	"side ponytail":"双马尾",
 	"ponytail":"马尾",
 	"cat ears":"猫耳",
+	"cavalry":"骑兵",
 	
 //重新分类
 	"doujinshi":"同人本",
@@ -4613,26 +4667,69 @@ var tData={
 };
 
 function translateR(word){ //寻找翻译
+	var word2 = word;
 	word = word.substr(0,word.length-1);	
 	var txt = rData[word];					//翻译不存在返回原文本，否则返回翻译后的文本。
 	if (txt == undefined) 
-			return false;
+			return word;
 　	else	return txt + ":";
 }
 //英语翻译函数
 function translate(word){ //寻找翻译
 	var txt = tData[word];//翻译不存在返回原文本，否则返回翻译后的文本。
 	if (txt == undefined)
-			return false;
-　　else	return txt;
+			return word;
+	else	return txt;
 }
+
+var GalleryCategory = {
+	 "Doujinshi"		:"同人志 : Doujinshi"
+	,"Manga"			:"漫画 : Manga"
+	,"Artist CG Sets"	:"画师绘图 : Artist CG Sets"
+	,"Game CG Sets"		:"游戏绘图 : Game CG Sets"
+	,"Western"			:"西方的 : Western"
+	,"Non-H"			:"无色情 : Non-H"
+	,"Image Sets"		:"图片集 : Image Sets"
+	,"Cosplay"			:"角色扮演 : Cosplay"
+	,"Misc"				:"杂项 : Misc"
+}
+
+GalleryListTags();
+function GalleryListTags(){
+	//$("div[class='id43 ir irb']").css("background-color","#8C95FF")
+	$("div.tft").each(function(){
+		//$(this).attr("title",$(this).attr("title").replace(", ","\n"));
+		var title = $(this).attr("title");
+		var Temp = [title];
+		var Output = "";
+		
+		if(title.match(",")) Temp = title.split(", ");
+		
+		for(var i = 0 ; i < Temp.length ; i++){
+			//console.error(Temp[i]);
+			if(!Temp[i].match(":")) Temp[i] = Temp[i] + ": "
+			var row = Temp[i].split(":")[0];
+			var tag = Temp[i].split(":")[1];
+			row = translateR(row + ":");
+			tag = translate (tag);
+			Output = Output + row + " " + tag + "\n"
+		}
+		$(this).attr("title",Output);
+	})
 	
+	$("div.id41").each(function(){
+		var Title = $(this).attr("title");
+		var TitleT = GalleryCategory[Title];
+		if(TitleT !== undefined) $(this).attr("title",TitleT);
+		//else alert("ccc");
+	})
+}
+
 function TagListChange(){
 	$("#taglist td.tc").css("table-layout","fixed").css("width","60px");
 	var taglist = document.getElementById("taglist");	//TAG列表
 	var tab 	= taglist.getElementsByTagName("table").item(0);//TAG清单里的表格
 	if(!tab) return;
-	
 	var rowsl 	= tab.rows.length;						//行数
 	
 	for(var ir 	= 0;ir < rowsl;ir++){
@@ -4650,7 +4747,11 @@ function TagListChange(){
 			if(!taga) continue;
 			var eword 	= taga.textContent;							//该TAG的文本
 			var tra 	= translate(eword);							//翻译
-			if (tra) taga.innerHTML = showOriginal ? tra + "[" + eword + "]" : tra;
+			if (tra){
+				taga.innerHTML = showOriginal ? tra + "[" + eword + "]" : tra;
+				var tagaTitle = $(taga).attr("id").replace(new RegExp("ta_","gmi"),"").replace(new RegExp("_","gmi")," ");
+				$(taga).attr("title",tagaTitle);
+			}
 		}
 	}
 };
