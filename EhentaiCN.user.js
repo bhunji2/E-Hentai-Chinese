@@ -3,7 +3,7 @@
 // @namespace    Exhentai_叶海晨星
 // @namespace    Tast
 // @namespace    2016+, Mapaler <mapaler@163.com>
-// @version      0.54
+// @version      0.60
 // @description  E绅士中文化
 // @author       Tast
 // @include      *://exhentai.org/*
@@ -11,19 +11,21 @@
 // @include      *://*e-hentai.org/*
 // @grant		 GM_getValue
 // @grant		 GM_setValue
+// @grant		 GM_getResourceURL
 // @icon         http://exhentai.org/favicon.ico
 // @require      https://code.jquery.com/jquery-1.12.3.min.js
 // @require 	 https://greasyfork.org/scripts/20286-chinesetr/code/ChineseTR.js
+// @require 	 https://code.jquery.com/ui/1.12.0-rc.2/jquery-ui.min.js
+// @resource 	 JQUI	https://code.jquery.com/ui/1.12.0-rc.2/themes/smoothness/jquery-ui.css
 // ==/UserScript==
 //==============================================变量声明==============================================
+//https://code.jquery.com/ui/
 // @resource 	 testjs		http://tast.banner.tw/Javascript/EHentai/Ehentai.user.js
 // @require      https://code.jquery.com/jquery-1.12.4.min.js
 // @require      https://code.jquery.com/jquery-2.2.4.min.js
 // @require 	 https://greasyfork.org/scripts/20312-e-hentai-tag-list-for-chinese/code/E-Hentai%20Tag%20list%20for%20Chinese.js?version=130078
 // @require		 https://greasyfork.org/scripts/20341-eh-chinese-cn-lib-js/code/EH-chinese_CNlibjs.js?version=130143
 //======================================================================================================================
-//cookie nw = 1 表站内容物不警告
-//1 USD = BTC/USD.
 
 //alert(JSON.stringify(Page_CN));
 var url	 		= window.location.href;
@@ -200,6 +202,13 @@ var Page 		=
 		,"#searchbox p.nopm a:contains('Show File Search')"			:"显示以图搜图"
 		,"div.ido p:contains('No hits found')":"<font color='red'><b>没有任何发现</b></font>"
 		
+		//以图搜图
+		,"#searchbox p:contains('Showing results for file:')"	:"显示图片搜索："
+		,"#searchbox label:contains('Only Search Covers')"		:"只搜索画册封面"
+		,"#searchbox label:contains('Show Expunged')"			:"显示隐藏画册"
+		,"#searchbox a:contains('Perform a new search')"		:"开启新搜索"
+		,"#searchbox span:contains('disabled')"					:"关闭"
+		
 		//列表模式
 		,"div.ido table.itg th:contains('Published')"	:"发表时间"
 		,"div.ido table.itg th:contains('Name')"		:"标题"
@@ -207,7 +216,16 @@ var Page 		=
 		
 		,"ReplaceMode":
 		[
-			 ["attr","#searchbox input[name='f_search']",	"placeholder"		,"填此搜索"]
+			//以图搜图
+			 ["html","#searchbox p:contains('a new search to alter this.')"
+				,"Similarity Scan was "
+				,"相似度搜索已经为此次搜索"]
+			,["html","#searchbox p:contains('a new search to alter this.')"
+				," for this search. You must start a new search to alter this."
+				,".  你必须启动新搜索启用相似度搜条件."]
+			 
+			 
+			,["attr","#searchbox input[name='f_search']",	"placeholder"		,"输入搜索"]
 			,["attr","#searchbox input[name='f_apply']"	,	"value"				,"确定"]
 			,["attr","#searchbox input[name='f_clear']"	,	"value"				,"清除"]
 			
@@ -926,11 +944,12 @@ var Page 		=
 			
 			,["html","#mgform td"
 				,"Set public category for selected galleries:"
-				,"给选择的画册设置公开分类："]
+				,"给选择的画册设置分类："]
 			,["html","#mgform td"
 				,"Move selected galleries to folder:"
 				,"将选择的画册移至文件夹："]
 			
+			,["html","select[name='publiccat']","\\(Private\\)"	,"（ 私人画册 ）"]
 			,["html","select[name='publiccat']","Doujinshi"		,"同人志－Doujinshi"]
 			,["html","select[name='publiccat']","Manga"			,"漫画－－Manga"]
 			,["html","select[name='publiccat']","Artist CG Sets","画师绘图Artist CG Sets"]
@@ -1118,11 +1137,14 @@ var Page 		=
 		,"div.ido a:contains('Cleanup Past Month')"	:"清理上个月排行"
 		,"div.ido a:contains('Cleanup Yesterday')"	:"清理昨天排行榜"
 		//排行内容页
-		,"table.itg th:contains('Rank')"		:"排名"
-		,"table.itg th:contains('Score')"		:"分数"
-		,"table.itg th:contains('Published')"	:"发表时间"
-		,"table.itg th:contains('Name')"		:"名称"
-		,"table.itg th:contains('Uploader')"	:"上传者"
+		,"table.itg th:contains('Rank')"			:"排名"
+		,"table.itg th:contains('Score')"			:"分数"
+		,"table.itg th:contains('Published')"		:"发表时间"
+		,"table.itg th:contains('Name')"			:"名称"
+		,"table.itg th:contains('Uploader')"		:"上传者"
+		,"#ot a:contains('Show only my galleries')"	:"只显示我的画册"
+		,"#ot a:contains('Show all galleries')"		:"显示全部画册"
+		,"#nf:contains('No matching entries found')":"<b>无搜索结果</b>"
 		,"ReplaceMode":
 		[
 			 ["text","div.ido h2"	,"Rating & Reviewing Toplists"	,"评星&回顾排行"]
@@ -1130,6 +1152,10 @@ var Page 		=
 			,["text","div.ido a"	,"Rating & Reviewing Past Year"	,"评星&去年排行榜"]
 			,["text","div.ido a"	,"Rating & Reviewing Past Month","评星&上个月排行"]
 			,["text","div.ido a"	,"Rating & Reviewing Yesterday"	,"评星&昨天排行榜"]
+			//排行内容页
+			,["html","p.os:contains('Only showing galleries uploaded by')"
+				,"Only showing galleries uploaded by "
+				,"显示画册上传者："]
 		]
 	},
 	
@@ -1334,6 +1360,8 @@ var Page 		=
 		,"table.btl span:contains('Rank F')"	:"分级 F"
 		,"table.btl span:contains('Unranked')"	:"未分级"
 		//悬赏内容页
+		,"p:contains('You have successfully upped the reward on this bounty.')":
+			"<font color='green'>你已经成功加码到此悬赏</font>"
 		,"td:contains('Bounty Posted By:')"			:"悬赏发起者："
 		,"td:contains('Bounty Type:')"				:"悬赏类型："
 		,"td:contains('Accepted Delivery:')"		:"接受交货："
@@ -1388,7 +1416,7 @@ var Page 		=
 		
 		,"ReplaceMode":
 		[
-			 ["attr","#focusme",	"placeholder"		,"填此搜索"]
+			 ["attr","#focusme",	"placeholder"		,"输入搜索"]
 			,["html","#searchform","Bounty Type:"		,"悬赏类型："]
 			,["html","#searchform","Bounty Status:"		,"悬赏状态："]
 			,["html","#searchform select.stdinput[name='t']",">All<"			,">全部<"]
@@ -1420,6 +1448,8 @@ var Page 		=
 			,["html","#lb p"
 				,"You have rescinded your reward for this bounty."
 				,"你已经成功撤销投资."]
+			,["html","div.brd td.bd2"," Credits \\+ "," <font color='RoyalBlue'>绅士币</font> + "]
+			,["html","div.brd td.bd2"," Hath"," <font color='DarkOrchid'>骇斯币</font>"]
 			,["attr","input[value='Rescind']"			,	"value","撤销"]
 			,["html","div.brd p"
 				,"If you wish, you can throw in some more Credits or Hath for this reward."
@@ -2169,7 +2199,7 @@ var Page 		=
 			//Gallery Page Numbering
 			,["html","div.optmain p"
 				,"Show gallery page numbers:"
-				,"显示画册有多少页"]
+				,"显示画册内图片的页数编号"]
 			//Hentai@Home Proxy
 			,["html","div.optmain p"
 				,"Set the field below to the IP:Port of a proxy-enabled Hentai@Home Client to load all images through this client, "
@@ -2757,6 +2787,7 @@ var Page 		=
 		,"table.itg th:contains('Name')"				:"标题"
 		,"table.itg th:contains('Favorited')"			:"收藏时间"
 		,"table.itg th a:contains('Favorited')"			:"收藏时间"
+		,"p:contains('No hits found')"					:"<font color='red'><b>无搜索结果</b></font>"
 		
 		,"ReplaceMode":
 		[
@@ -3002,7 +3033,7 @@ var Page 		=
 		 "#galpop p:contains('Please choose a color to file this favorite gallery under. You can also add a note to it if you wish.')":
 			"请选择一个收藏色作为识别，你也可以加入注记."
 		,"#galpop p:contains('Favorite Note (Max 200 Characters)')":
-			"收藏注记 ( 最多 200 英文本母 )"
+			"收藏注记 ( 最多 200 英文字母 )"
 		,"#galpop div.nosel div[onclick*='favdel']:contains('Remove from Favorites')":
 			"移除收藏"
 		//删除类
@@ -3153,6 +3184,7 @@ function uconfig(){
 }
 
 Pager();
+//setTimeout(function(){ Pager(); }, 50);
 function Pager(){
 	/*
 	if(TRvalue == "cnd" && Page_CN != undefined){
@@ -3624,7 +3656,7 @@ var tData={
 	"draenei":"德莱尼",
 	"fairy":"妖精",
 	"fox boy":"狐男",
-	"fox girl":"狐娘",
+	"fox girl":"狐娘(狐女)",
 	"furry":"人型兽",
 	"ghost":"幽灵",
 	"goblin":"地精",
@@ -4338,7 +4370,8 @@ var tData={
 	"hotpants":"紧身短裤",
 	"tracksuit":"运动服",
 	"corset":"紧身胸衣",
-	"latex":"橡胶衣物（紧身）",
+	"latex":"乳胶橡胶衣物（紧身）",
+	"rubber":"乳胶橡胶衣物（紧身）",
 	"big balls":"异常大的睾丸",
 	"bandages":"绷带",
 	"bbm":"胖男人",
@@ -4361,7 +4394,6 @@ var tData={
 	"sundress":"太阳裙(夏装)",
 	"gymshorts":"拳击短裤",
 	"sunglasses":"太阳镜",
-	"fox girl":"狐娘",
 	"chinese dress":"中国衣着（旗袍）",
 	"minigirl":"迷你女孩",
 	"invisible":"隐形人",
@@ -4593,7 +4625,7 @@ var tData={
 	"uncensored":"未经审查的（通常是无码的）",
 	"vomit":"呕吐物",
 	"torture":"酷刑",
-	"bdsm":"SM",
+	"bdsm":"虐恋调教",
 	"tube":"管子",
 	"wooden horse":"木马",
 	"public use":"公众使用",
@@ -4670,7 +4702,7 @@ function translateR(word){ //寻找翻译
 	var txt = rData[word];					//翻译不存在返回原文本，否则返回翻译后的文本。
 	if (txt == undefined) 
 			return word;
-　	else	return txt + ":";
+　	else	return txt;
 }
 //英语翻译函数
 function translate(word){ //寻找翻译
@@ -4728,7 +4760,6 @@ function TagListChange(){
 	var taglist = document.getElementById("taglist");	//TAG列表
 	var tab 	= taglist.getElementsByTagName("table").item(0);//TAG清单里的表格
 	if(!tab) return;
-	
 	var rowsl 	= tab.rows.length;						//行数
 	
 	for(var ir 	= 0;ir < rowsl;ir++){
@@ -4737,8 +4768,8 @@ function TagListChange(){
 		var cell_tags 		= rowt.cells.item(1);		//该行TAG
 		var tags 			= cell_tags.getElementsByTagName("div");
 		var eword 			= cell_rowname.textContent;	//去掉行名的冒号
-		var tra 			= translateR(eword);		//翻译
-		if (tra) cell_rowname.innerHTML = tra;
+		var traR 			= translateR(eword);		//翻译
+		if (traR && traR !== eword) cell_rowname.innerHTML = traR + ":";
 		
 		for(var ic = 0;ic < tags.length;ic++){
 			var tag 	= tags.item(ic);							//该TAG
@@ -4746,7 +4777,7 @@ function TagListChange(){
 			if(!taga) continue;
 			var eword 	= taga.textContent;							//该TAG的文本
 			var tra 	= translate(eword);							//翻译
-			if (tra){
+			if (tra && tra !== eword){
 				taga.innerHTML = showOriginal ? tra + "[" + eword + "]" : tra;
 				var tagaTitle = $(taga).attr("id").replace(new RegExp("ta_","gmi"),"").replace(new RegExp("_","gmi")," ");
 				$(taga).attr("title",tagaTitle);
@@ -4754,8 +4785,30 @@ function TagListChange(){
 		}
 	}
 };
+	
+function split( val ) 			{ return val.split( /,\s*/ ); }
+function extractLast( term ) 	{ return split( term ).pop(); }
+Object.values = function (obj) {
+    var vals = [];
+    for( var key in obj ) {
+        if ( obj.hasOwnProperty(key) ) {
+            vals.push(obj[key]);
+        }
+    }
+    return vals;
+}
+function swap(json){
+		var ret = {};
+		for(var key in json){
+			ret[json[key]] = key;
+		}
+		return ret;
+	}
 
 if(url.match(".org\/g\/")){ 
+	var JQUI = GM_getResourceURL("JQUI");
+	$('head').append('<link rel="stylesheet" href="' + JQUI + '" type="text/css" />');
+	
 	//TagListChange2(); 
 	//$("#gn").click(function(){ alert($("#taglist").html().length); });
 	
@@ -4763,6 +4816,61 @@ if(url.match(".org\/g\/")){
 	$("#taglist").bind("DOMSubtreeModified", function() { 
 		TagListChange2(); 
 	});
+	
+	$("#newtagfield").bind( "keyup", function( event ) {
+		$(this).unbind("keyup");
+		SubTag();
+	})
+}
+
+function SubTag(){
+	//https://jqueryui.com/autocomplete/#multiple
+	//https://jqueryui.com/autocomplete/#maxheight
+	$(	 "<style type='text/css'> .ui-autocomplete { max-height: 200px; overflow-y: auto; overflow-x: hidden; }"
+		+"* html .ui-autocomplete { height: 100px; }"
+		+"</style>").appendTo("head");
+	
+	var KeyName 		= Object.keys(tData);
+	var KeyValueName	= swap(tData);
+	var KeyValue		= Object.keys(KeyValueName);
+	
+	$("#newtagfield").bind( "keydown", function( event ) {
+		if ( event.keyCode === $.ui.keyCode.TAB && $( this ).autocomplete( "instance" ).menu.active ) 
+			{ event.preventDefault(); }
+	})
+	.autocomplete({ minLength: 1, delay: 300,
+        source: function( request, response ) {
+			//response( $.ui.autocomplete.filter( KeyName, extractLast( request.term ) ) );
+			var InputKey = extractLast( request.term );
+			//alert(JSON.stringify(extractLast( request.term )));
+			var filter = $.ui.autocomplete.filter( KeyName, InputKey );
+			for(var i = 0 ; i < filter.length ; i++){
+				filter[i] = filter[i] + "：" + tData[filter[i]];
+			}
+			
+			if(filter.length == 0){
+				filter = $.ui.autocomplete.filter( KeyValue, InputKey );
+				for(var i = 0 ; i < filter.length ; i++){
+					filter[i] = KeyValueName[filter[i]] + "：" + filter[i];
+				}
+			}
+			
+			response( filter );
+        },
+        focus: function() {
+			// prevent value inserted on focus
+			return false;
+        },
+        select: function( event, ui ) {
+			  var terms = split( this.value ); // remove the current input
+			  ui.item.value = ui.item.value.split("：")[0];
+			  terms.pop(); // add the selected item
+			  terms.push( "female:" + ui.item.value ); // add placeholder to get the comma-and-space at the end
+			  terms.push( "" );
+			  this.value = terms.join( ", " );
+			  return false;
+		}
+    });
 }
 
 
