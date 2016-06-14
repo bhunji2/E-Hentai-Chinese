@@ -3,7 +3,7 @@
 // @namespace    Exhentai_叶海晨星
 // @namespace    Tast
 // @namespace    2016+, Mapaler <mapaler@163.com>
-// @version      0.60
+// @version      0.65
 // @description  E绅士中文化
 // @author       Tast
 // @include      *://exhentai.org/*
@@ -48,6 +48,27 @@ var Page 		=
 		,"#lb a:contains('Karma Log')"		:"业力记录" //https://ehwiki.org/wiki/Karma/Chinese
 		,"p.ip a:contains('Front Page')"	:"回到首页"
 		
+		
+		,"#toppane h1.ih:contains('E-Hentai Galleries: The Free Hentai Doujinshi, Manga and Image Gallery System')":
+			"<a href='https://goo.gl/OJksVO'>E绅士图库：免费的绅士同人志、漫画、图片画册系统</a>"
+		,"#toppane h1.ih:contains('ExHentai.org - The X Makes It Sound Cool')":
+			"<a href='https://goo.gl/OJksVO'>EX绅士图库：中文化 By Tast</a>"
+		,"#searchbox p.nopm a:contains('Show Advanced Options')"	:"显示高级搜索"
+		,"#searchbox p.nopm a:contains('Show File Search')"			:"显示以图搜图"
+		,"div.ido p:contains('No hits found')":"<font color='red'><b>没有任何发现</b></font>"
+		
+		//以图搜图
+		,"#searchbox p:contains('Showing results for file:')"	:"显示图片搜索："
+		,"#searchbox label:contains('Only Search Covers')"		:"只搜索画册封面"
+		,"#searchbox label:contains('Show Expunged')"			:"显示隐藏画册"
+		,"#searchbox a:contains('Perform a new search')"		:"开启新搜索"
+		,"#searchbox span:contains('disabled')"					:"关闭"
+		
+		//列表模式
+		,"div.ido table.itg th:contains('Published')"	:"发表时间"
+		,"div.ido table.itg th:contains('Name')"		:"标题"
+		,"div.ido table.itg th:contains('Uploader')"	:"上传者"
+		
 		,"ReplaceMode":
 		[
 			 ["html","div.dp"
@@ -65,9 +86,84 @@ var Page 		=
 			,["html","div.dp"
 				,"before participating with or uploading any content to this site."
 				,"后使用本站功能."]
-		
+			,["html","div.ido p.ip a"	,"Visit the E-Hentai Main Site"	,"E绅士主站"]
+			,["html","div.ido p.ip a"	,"Visit the E-Hentai Forums"	,"E绅士论坛"]
+			,["html","div.ido p.ip a"	,"E-Hentai @ Twitter"			,"E绅士推特"]
+			,["html","div.ido p.ip a"	,"Play the HentaiVerse Minigame","E绅士游戏"]
+			,["html","div.ido p.ip a"	,"Lo-Fi Version"				,"E绅士移动版"]
+			
+			//以图搜图
+			,["html","#searchbox p:contains('a new search to alter this.')"
+				,"Similarity Scan was "
+				,"相似度搜索已经为此次搜索"]
+			,["html","#searchbox p:contains('a new search to alter this.')"
+				," for this search. You must start a new search to alter this."
+				,".  你必须启动新搜索启用相似度搜条件."]
+			 
+			 
+			,["attr","#searchbox input[name='f_search']",	"placeholder"		,"输入搜索"]
+			,["attr","#searchbox input[name='f_apply']"	,	"value"				,"确定"]
+			,["attr","#searchbox input[name='f_clear']"	,	"value"				,"清除"]
+			
+			,["attr","#searchbox p.nopm a:contains('显示高级搜索')"	,	"title"	,"显示/隐藏高级搜索"]
+			,["attr","#searchbox p.nopm a:contains('显示以图搜图')"	,	"title"	,"显示/隐藏以图搜图"]
+			
+			,["modi","#searchbox p.nopm a"	,{
+				"Show Advanced Options"	:"显示高级搜索",
+				"Show File Search"		:"显示以图搜图"
+			}]
+			
+			,["modi","#advdiv"	,{
+				 "Search Gallery Name"			:"搜索图册名称"
+				,"Search Gallery Tags"			:"搜索图册标签"
+				,"Search Gallery Description"	:"搜索图册描述"
+				,"Search Torrent Filenames"		:"搜索种子文件名称"
+				,"Search Low-Power Tags"		:"搜索低等的图册标签"
+				,"Show Expunged Galleries"		:"显示隐藏图册"
+				,"Only Show Galleries With Torrents":"只显示有种子的图册"
+				,"Search Downvoted Tags"		:"搜索低评价的标签"
+				,"Minimum Rating:"				:"搜索大于星星数："
+				,'2 stars':"2 星"
+				,'3 stars':"3 星"
+				,'4 stars':"4 星"
+				,'5 stars':"5 星"
+			}]
+			
+			,["modi","#fsdiv"	,{
+				"If you want to combine a file search with a category/keyword search, upload the file first.":
+					"如果你想要文件与类型、关键字一起搜索，请先上传文件.",
+				"Select a file to upload, then hit File Search.":
+					"选择一个文件并点击文件搜索按钮.",
+				"All public galleries containing this exact file will be displayed.":
+					"任何公开包含此图片档的画册都会被显示.",
+				"For color images, the system can also perform a similarity lookup to find resampled images.":
+					"如果使用彩色图片，系统会检测画册中最相似的图片.",
+					
+				"Use Similarity Scan"	:"使用图片类似度搜索",
+				"Only Search Covers"	:"只搜索画册封面",
+				"Show Expunged"			:"显示被隐藏的画册",
+				'name="f_sfile" value="File Search"':'name="f_sfile" value="搜索文件"'
+			}]
+			,["html","#iw"
+				,"Note: No file was uploaded, or the uploaded file was invalid. Better luck next time."
+				,"注意：无上传文件，或文件不可用. 祝你下一次成功."]
+			
+			,["html","div.ido p.ip"							,"Showing"	,"显示"]
+			,["html","div.ido p.ip"							,"of"		,"共有"]
+			,["html","div.id42"								,"files"	,"页"]
+			,["attp","img.tn[src*='.org/g/t.png']"	,"title"
+				,"Torrents exist for this gallery"
+				,"本画册附有种子"]
+			,["html","#pt","Popular Right Now"				,"热门画册显示区"]
 		]
 		
+	},
+	
+	"g.e-hentai.org/":
+	{
+	},
+	"exhentai.org/":
+	{
 	},
 	
 	"e-hentai.org/":
@@ -191,99 +287,6 @@ var Page 		=
 			,["html","#lrc:contains(' of ')"
 				,"of"
 				,"共"]
-			
-		]
-	},
-	
-	"g.e-hentai.org/":
-	{
-		 "#toppane h1.ih":"E绅士图库：免费的绅士同人志、漫画、图片画册系统"
-		,"#searchbox p.nopm a:contains('Show Advanced Options')"	:"显示高级搜索"
-		,"#searchbox p.nopm a:contains('Show File Search')"			:"显示以图搜图"
-		,"div.ido p:contains('No hits found')":"<font color='red'><b>没有任何发现</b></font>"
-		
-		//以图搜图
-		,"#searchbox p:contains('Showing results for file:')"	:"显示图片搜索："
-		,"#searchbox label:contains('Only Search Covers')"		:"只搜索画册封面"
-		,"#searchbox label:contains('Show Expunged')"			:"显示隐藏画册"
-		,"#searchbox a:contains('Perform a new search')"		:"开启新搜索"
-		,"#searchbox span:contains('disabled')"					:"关闭"
-		
-		//列表模式
-		,"div.ido table.itg th:contains('Published')"	:"发表时间"
-		,"div.ido table.itg th:contains('Name')"		:"标题"
-		,"div.ido table.itg th:contains('Uploader')"	:"上传者"
-		
-		,"ReplaceMode":
-		[
-			//以图搜图
-			 ["html","#searchbox p:contains('a new search to alter this.')"
-				,"Similarity Scan was "
-				,"相似度搜索已经为此次搜索"]
-			,["html","#searchbox p:contains('a new search to alter this.')"
-				," for this search. You must start a new search to alter this."
-				,".  你必须启动新搜索启用相似度搜条件."]
-			 
-			 
-			,["attr","#searchbox input[name='f_search']",	"placeholder"		,"输入搜索"]
-			,["attr","#searchbox input[name='f_apply']"	,	"value"				,"确定"]
-			,["attr","#searchbox input[name='f_clear']"	,	"value"				,"清除"]
-			
-			,["attr","#searchbox p.nopm a:contains('显示高级搜索')"	,	"title"	,"显示/隐藏高级搜索"]
-			,["attr","#searchbox p.nopm a:contains('显示以图搜图')"	,	"title"	,"显示/隐藏以图搜图"]
-			
-			,["modi","#searchbox p.nopm a"	,{
-				"Show Advanced Options"	:"显示高级搜索",
-				"Show File Search"		:"显示以图搜图"
-			}]
-			
-			,["modi","#advdiv"	,{
-				 "Search Gallery Name"			:"搜索图册名称"
-				,"Search Gallery Tags"			:"搜索图册标签"
-				,"Search Gallery Description"	:"搜索图册描述"
-				,"Search Torrent Filenames"		:"搜索种子文件名称"
-				,"Search Low-Power Tags"		:"搜索低等的图册标签"
-				,"Show Expunged Galleries"		:"显示隐藏图册"
-				,"Only Show Galleries With Torrents":"只显示有种子的图册"
-				,"Search Downvoted Tags"		:"搜索低评价的标签"
-				,"Minimum Rating:"				:"搜索大于星星数："
-				,'2 stars':"2 星"
-				,'3 stars':"3 星"
-				,'4 stars':"4 星"
-				,'5 stars':"5 星"
-			}]
-			
-			,["modi","#fsdiv"	,{
-				"If you want to combine a file search with a category/keyword search, upload the file first.":
-					"如果你想要文件与类型、关键字一起搜索，请先上传文件.",
-				"Select a file to upload, then hit File Search.":
-					"选择一个文件并点击文件搜索按钮.",
-				"All public galleries containing this exact file will be displayed.":
-					"任何公开包含此图片档的画册都会被显示.",
-				"For color images, the system can also perform a similarity lookup to find resampled images.":
-					"如果使用彩色图片，系统会检测画册中最相似的图片.",
-					
-				"Use Similarity Scan"	:"使用图片类似度搜索",
-				"Only Search Covers"	:"只搜索画册封面",
-				"Show Expunged"			:"显示被隐藏的画册",
-				'name="f_sfile" value="File Search"':'name="f_sfile" value="搜索文件"'
-			}]
-			,["html","#iw"
-				,"Note: No file was uploaded, or the uploaded file was invalid. Better luck next time."
-				,"注意：无上传文件，或文件不可用. 祝你下一次成功."]
-			
-			,["html","div.ido p.ip"							,"Showing"	,"显示"]
-			,["html","div.ido p.ip"							,"of"		,"共有"]
-			,["html","div.id42"								,"files"	,"页"]
-			,["attp","img.tn[src*='.org/g/t.png']"	,"title"
-				,"Torrents exist for this gallery"
-				,"本画册附有种子"]
-			,["html","#pt","Popular Right Now"				,"热门画册显示区"]
-			,["html","div.ido p.ip a"	,"Visit the E-Hentai Main Site"	,"E绅士主站"]
-			,["html","div.ido p.ip a"	,"Visit the E-Hentai Forums"	,"E绅士论坛"]
-			,["html","div.ido p.ip a"	,"E-Hentai @ Twitter"			,"E绅士推特"]
-			,["html","div.ido p.ip a"	,"Play the HentaiVerse Minigame","E绅士游戏"]
-			,["html","div.ido p.ip a"	,"Lo-Fi Version"				,"E绅士移动版"]
 			
 		]
 	},
@@ -1435,6 +1438,9 @@ var Page 		=
 			,["html","#searchform select.stdinput[name='s']",">Bounties Completed By Me<"	,">我完成的<"]
 			,["attr","input[value='Search Bounties']"	,	"value","搜索悬赏"]
 			,["attr","input[value='Clear']"				,	"value","清除"]
+			,["html","h1.ih:contains('Showing All Open Bounties posted by ')"
+				,"Showing All Open Bounties posted by "
+				,"显示该会员发起的所有悬赏："]
 			//悬赏榜单类
 			,["html","div.stuffbox span:contains('\\< Prev 10')","Prev 10","前 10 项"]
 			,["html","div.stuffbox span:contains('Next 10 \\>')","Next 10","后 10 项"]
@@ -1624,78 +1630,6 @@ var Page 		=
 		]
 	},
 	
-	"exhentai.org/":
-	{
-		 "#toppane h1.ih":"E绅士图库：免费的绅士同人志、漫画、图片画册系统"
-		,"#searchbox p.nopm a:contains('Show Advanced Options')"	:"显示高级搜索"
-		,"#searchbox p.nopm a:contains('Show File Search')"			:"显示以图搜图"
-		//列表模式
-		,"div.ido table.itg th:contains('Published')"	:"发表时间"
-		,"div.ido table.itg th:contains('Name')"		:"标题"
-		,"div.ido table.itg th:contains('Uploader')"	:"上传者"
-		
-		,"ReplaceMode":
-		[
-			 ["attr","#searchbox input[name='f_search']",	"placeholder"		,"输入搜索"]
-			,["attr","#searchbox input[name='f_apply']"	,	"value"				,"确定"]
-			,["attr","#searchbox input[name='f_clear']"	,	"value"				,"清除"]
-			,["attr","#fsdiv input[value='File Search']",	"value"				,"文件搜索"]
-			
-			,["attr","#searchbox p.nopm a:contains('显示高级搜索')"	,	"title"	,"显示/隐藏高级搜索"]
-			,["attr","#searchbox p.nopm a:contains('显示以图搜图')"	,	"title"	,"显示/隐藏以图搜图"]
-			
-			,["modi","#searchbox p.nopm a"	,{
-				"Show Advanced Options"	:"显示高级搜索",
-				"Show File Search"		:"显示以图搜图"
-			}]
-			
-			,["modi","#advdiv"	,{
-				 "Search Gallery Name"			:"搜索图册名称"
-				,"Search Gallery Tags"			:"搜索图册标签"
-				,"Search Gallery Description"	:"搜索图册描述"
-				,"Search Torrent Filenames"		:"搜索种子文件名称"
-				,"Search Low-Power Tags"		:"搜索低评价的图册标签"
-				,"Show Expunged Galleries"		:"显示隐藏图册"
-				,"Only Show Galleries With Torrents":"只显示有种子的图册"
-				,"Search Downvoted Tags"		:"搜索低评价的标签"
-				,"Minimum Rating:"				:"搜索大于星星数："
-				,'2 stars':"2 星"
-				,'3 stars':"3 星"
-				,'4 stars':"4 星"
-				,'5 stars':"5 星"
-			}]
-			
-			,["modi","#fsdiv"	,{
-				"If you want to combine a file search with a category/keyword search, upload the file first.":
-					"如果你想要文件与类型、关键字一起搜索，请先上传文件.",
-				"Select a file to upload, then hit File Search.":
-					"选择一个文件并点击文件搜索按钮.",
-				"All public galleries containing this exact file will be displayed.":
-					"任何公开包含此图片档的画册都会被显示.",
-				"For color images, the system can also perform a similarity lookup to find resampled images.":
-					"如果使用彩色图片，系统会检测画册中最相似的图片.",
-					
-				"Use Similarity Scan"	:"使用图片类似度搜索",
-				"Only Search Covers"	:"只搜索画册封面",
-				"Show Expunged"			:"显示被隐藏的画册"
-			}]
-			
-			,["html","div.ido p.ip"							,"Showing"	,"显示"]
-			,["html","div.ido p.ip"							,"of"		,"共有"]
-			,["html","div.itg div.id1 div.id42"				,"files"	,"页"]
-			,["attp","img.tn[src*='.org/img/t.png']"		,"title"
-				,"Torrents exist for this gallery"
-				,"本画册附有种子"]
-			,["html","#pt","Popular Right Now"				,"热门画册显示区"]
-			,["html","div.ido p.ip a"	,"Visit the E-Hentai Main Site"	,"E绅士主站"]
-			,["html","div.ido p.ip a"	,"Visit the E-Hentai Forums"	,"E绅士论坛"]
-			,["html","div.ido p.ip a"	,"E-Hentai @ Twitter"			,"E绅士推特"]
-			,["html","div.ido p.ip a"	,"Play the HentaiVerse Minigame","E绅士游戏"]
-			,["html","div.ido p.ip a"	,"Lo-Fi Version"				,"E绅士移动版网站"]
-			
-		]
-	},
-	
 	"torrents.php":
 	{
 		 "div.ido h1.ih:contains('Torrents')"			:"BT种子列表"
@@ -1704,6 +1638,7 @@ var Page 		=
 		,"#torrentform p a:contains('Unseeded')"		:"无做种"
 		,"#torrentform p a:contains('All Torrents')"	:"全部种子"
 		,"#torrentform p a:contains('Only My Torrents')":"只有我的"
+		
 		,"table.itg th a:contains('Added')"				:"加入时间"
 		,"table.itg th:contains('Torrent Name')"		:"种子名称"
 		,"table.itg th:contains('Gallery')"				:"编号"
@@ -2237,7 +2172,8 @@ var Page 		=
 				,"标记可用逗号分隔，你最多可使用 "]
 			,["html","div.optmain p"
 				,"tags per flag."
-				," 个标记"]
+				," 个标记"
+				+"<br>旗帜旁边的隐藏勾选后，缩略图会隐藏."]
 			//Advertisements
 			,["html","div.optmain p"
 				,"Would you like to browse with advertisements enabled?"
@@ -2899,6 +2835,7 @@ var Page 		=
 				,"在这边输入评论后发表，如果最后一则评论是你的，将会自动沿展评论区."]
 			,["attr","input[value='Post Comment']","value","发表评论"]
 			,["html","div.c7[id*='cvotes_']","Base +","基础"]
+			,["html","div.c8","Last edited on ","最后更新时间："]
 		]
 	},
 	
@@ -4268,7 +4205,7 @@ var tData={
 	"prostitution":"卖淫",
 	"swinging":"摆动",
 //======================================================================================================================
-	"western":"西方人",
+	"western":"西方的",
 	"misc":"杂 项",
 	"imageset":"图片集",
 //艺术家
@@ -4690,11 +4627,14 @@ var tData={
 	"ponytail":"马尾",
 	"cat ears":"猫耳",
 	"cavalry":"骑兵",
+	"monoeye":"天生单眼",
 	
 //重新分类
 	"doujinshi":"同人本",
 	"manga":"漫画杂志"
 };
+
+
 
 function translateR(word){ //寻找翻译
 	var word2 = word;
@@ -4727,7 +4667,7 @@ var GalleryCategory = {
 GalleryListTags();
 function GalleryListTags(){
 	//$("div[class='id43 ir irb']").css("background-color","#8C95FF")
-	$("div.tft").each(function(){
+	$("div.tft,div.tfl").each(function(){
 		//$(this).attr("title",$(this).attr("title").replace(", ","\n"));
 		var title = $(this).attr("title");
 		var Temp = [title];
@@ -4742,7 +4682,7 @@ function GalleryListTags(){
 			var tag = Temp[i].split(":")[1];
 			row = translateR(row + ":");
 			tag = translate (tag);
-			Output = Output + row + " " + tag + "\n"
+			Output = Output + row + "：" + tag + "\n"
 		}
 		$(this).attr("title",Output);
 	})
