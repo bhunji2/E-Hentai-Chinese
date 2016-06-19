@@ -3,7 +3,7 @@
 // @namespace    Exhentai_叶海晨星
 // @namespace    Tast
 // @namespace    2016+, Mapaler <mapaler@163.com>
-// @version      0.65
+// @version      0.66
 // @description  E绅士中文化
 // @author       Tast
 // @include      *://exhentai.org/*
@@ -147,7 +147,15 @@ var Page 		=
 			,["html","#iw"
 				,"Note: No file was uploaded, or the uploaded file was invalid. Better luck next time."
 				,"注意：无上传文件，或文件不可用. 祝你下一次成功."]
+			+//搜索信息
+			,["html","#iw p.nopm:contains('The keyword ')"
+				,"The keyword "
+				,"关键字「"]
+			,["html","#iw p.nopm:contains(' is too short, and was therefore skipped.')"
+				," is too short, and was therefore skipped. Use an exact search or combine it with other words by using quotes."
+				,"」，过短因此忽略，请使用更精确的搜索条件或使用\"引号\"结合其他带有空格的关键字."]
 			
+			//其他
 			,["html","div.ido p.ip"							,"Showing"	,"显示"]
 			,["html","div.ido p.ip"							,"of"		,"共有"]
 			,["html","div.id42"								,"files"	,"页"]
@@ -868,8 +876,12 @@ var Page 		=
 		 "div.ui p:contains('Your Galleries')"								:"你的画册"
 		,"div.ui p a:contains('Create a New Gallery')"						:"新建画册"
 		,"div.ui p a:contains('Manage Folders')"							:"管理文件夹"
-		,"#mgform div[style='float:left']:contains('Galleries active and publicly available')":"画册可用且公开"
-		,"#mgform div[style='float:left']div:contains('Galleries under construction, or being modified')":"画册建设修改中..."
++		,"#mgform div[style='float:left']div:contains('Galleries newly created')":
++			"最新建立的画册"
++		,"#mgform div[style='float:left']div:contains('Galleries under construction, or being modified')":
++			"画册建设修改中..."
++		,"#mgform div[style='float:left']:contains('Galleries active and publicly available')":
++			"画册可用且公开"
 		,"#mgform div a:contains('Collapse Open Folders')"					:"折叠文件夹"
 		,"#gtable4 td a:contains('Get Folder BBCode')"						:"取得文件夹 BBCode"
 		,"#mgform span.stdbtn:contains('+ All')" 		:"全选"
