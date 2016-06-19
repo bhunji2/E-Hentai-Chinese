@@ -147,7 +147,7 @@ var Page 		=
 			,["html","#iw"
 				,"Note: No file was uploaded, or the uploaded file was invalid. Better luck next time."
 				,"注意：无上传文件，或文件不可用. 祝你下一次成功."]
-			+//搜索信息
+			//搜索信息
 			,["html","#iw p.nopm:contains('The keyword ')"
 				,"The keyword "
 				,"关键字「"]
