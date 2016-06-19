@@ -876,12 +876,12 @@ var Page 		=
 		 "div.ui p:contains('Your Galleries')"								:"你的画册"
 		,"div.ui p a:contains('Create a New Gallery')"						:"新建画册"
 		,"div.ui p a:contains('Manage Folders')"							:"管理文件夹"
-+		,"#mgform div[style='float:left']div:contains('Galleries newly created')":
-+			"最新建立的画册"
-+		,"#mgform div[style='float:left']div:contains('Galleries under construction, or being modified')":
-+			"画册建设修改中..."
-+		,"#mgform div[style='float:left']:contains('Galleries active and publicly available')":
-+			"画册可用且公开"
+		,"#mgform div[style='float:left']div:contains('Galleries newly created')":
+			"最新建立的画册"
+		,"#mgform div[style='float:left']div:contains('Galleries under construction, or being modified')":
+			"画册建设修改中..."
+		,"#mgform div[style='float:left']:contains('Galleries active and publicly available')":
+			"画册可用且公开"
 		,"#mgform div a:contains('Collapse Open Folders')"					:"折叠文件夹"
 		,"#gtable4 td a:contains('Get Folder BBCode')"						:"取得文件夹 BBCode"
 		,"#mgform span.stdbtn:contains('+ All')" 		:"全选"
